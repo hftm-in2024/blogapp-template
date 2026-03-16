@@ -14,10 +14,12 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', async () => {
+  it('should render title in toolbar', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, blogapp-template');
+    expect(compiled.querySelector('mat-toolbar')?.textContent).toContain(
+      'HFTM Web Applications (IN353)',
+    );
   });
 });
