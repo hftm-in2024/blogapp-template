@@ -93,7 +93,7 @@ Add `bff/local.settings.json` to `.gitignore`. This file holds secrets for local
     "KEYCLOAK_CLIENT_ID": "bff-your-app",
     "KEYCLOAK_CLIENT_SECRET": "your-client-secret",
     "SESSION_SECRET": "change-me-to-a-random-32-char-string!!",
-    "BLOG_BACKEND_URL": "https://your-backend-api.example.com",
+    "BACKEND_API_URL": "https://your-backend-api.example.com",
     "ALLOWED_ORIGIN": "http://localhost:4200"
   },
   "Host": {
