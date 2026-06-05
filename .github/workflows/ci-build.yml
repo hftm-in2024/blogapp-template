@@ -60,6 +60,8 @@ jobs:
         uses: fallow-rs/fallow@v2.89.0
         with:
           format: sarif
+          # Report findings (surfaced in Code Scanning) without failing CI.
+          fail-on-issues: false
 
       - name: Upload Fallow results to Code Scanning
         uses: github/codeql-action/upload-sarif@v4
