@@ -72,6 +72,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        # Full history so Fallow's auto-changed-since can diff against the PR
+        # base SHA; a shallow checkout would break that "changed files" scoping.
+        with:
+          fetch-depth: 0
 
       - name: Fallow analysis
         uses: fallow-rs/fallow@v2.89.0
@@ -81,6 +85,9 @@ jobs:
           fail-on-issues: false
 
       - name: Upload Fallow results to Code Scanning
+        # Fork PRs only get a read-only token (no security-events: write), so the
+        # upload would fail. Skip it for forks; still runs on push and same-repo PRs.
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: fallow-results.sarif
