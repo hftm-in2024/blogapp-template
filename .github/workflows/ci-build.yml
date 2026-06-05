@@ -42,6 +42,15 @@ jobs:
       - name: E2E Tests
         run: npm run e2e
 
+      - name: Upload Playwright report
+        # Upload even when E2E fails — that's when the report is most useful.
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
   # Fallow runs in its own job on a plain runner (no container). The action is
   # a composite action that references files via ${{ github.action_path }}; in a
   # container job that host path isn't visible inside the container, which makes
