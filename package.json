@@ -33,6 +33,11 @@
   },
   "private": true,
   "packageManager": "npm@11.3.0",
+  "overrides": {
+    "@angular-devkit/architect": "^0.2200.0",
+    "@angular-devkit/core": "^22.0.0",
+    "@angular-devkit/schematics": "^22.0.0"
+  },
   "dependencies": {
     "@angular/animations": "^22.0.0",
     "@angular/cdk": "^22.0.0",
@@ -55,6 +60,8 @@
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@vitest/coverage-v8": "^4.1.8",
+    "@angular-eslint/builder": "21.4.0",
+    "@angular-eslint/schematics": "21.4.0",
     "angular-eslint": "^21.4.0",
     "eslint": "^10.0.3",
     "husky": "^9.1.7",
