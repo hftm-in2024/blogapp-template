@@ -44,5 +44,11 @@
     </div>
   }
 
+  @for (blog of blogs; track blog.id) {
+    <app-blog-card [blog]="blog" />
+  } @empty {
+    <p>Keine Blogs verfügbar</p>
+  }
+
   <router-outlet />
 </main>
