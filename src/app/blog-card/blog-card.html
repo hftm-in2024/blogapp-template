@@ -3,12 +3,24 @@
     <mat-card-title>{{ blog().title }}</mat-card-title>
     <mat-card-subtitle>{{ blog().author }}</mat-card-subtitle>
   </mat-card-header>
-  <img [src]="blog().headerImageUrl" alt="" />
+
+  @if (blog().headerImageUrl) {
+    <img [src]="blog().headerImageUrl" alt="" />
+  }
+
   <mat-card-content>
     <p>{{ blog().contentPreview }}</p>
   </mat-card-content>
+
   <mat-card-actions>
-    <button matButton>LIKE</button>
+    <button mat-icon-button (click)="onLike()">
+      <mat-icon>
+        {{ blog().likedByMe ? 'favorite' : 'favorite_border' }}
+      </mat-icon>
+    </button>
+
+    <span>{{ blog().likes }}</span>
+
     <button matButton>SHARE</button>
   </mat-card-actions>
 </mat-card>
