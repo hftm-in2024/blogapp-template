@@ -1,0 +1,7 @@
+<section class="blog-list">
+  @for (blog of blogs; track blog.id) {
+    <app-blog-card [model]="blog" (likedByMe)="toggleLike($event)" />
+  } @empty {
+    <p>Keine Blog-Posts vorhanden.</p>
+  }
+</section>
