@@ -5,7 +5,7 @@
   </mat-card-header>
 
   @if (blog().headerImageUrl) {
-    <img [src]="blog().headerImageUrl" alt="" />
+    <img matcardImage [src]="blog().headerImageUrl" [alt]="blog().title" />
   }
 
   <mat-card-content>
@@ -21,6 +21,6 @@
 
     <span>{{ blog().likes }}</span>
 
-    <button matButton>SHARE</button>
+    <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>
