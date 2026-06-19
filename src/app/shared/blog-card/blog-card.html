@@ -22,5 +22,7 @@
       <mat-icon>{{ model().likedByMe ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
     <span class="like-count">{{ model().likes }}</span>
+    <span class="spacer"></span>
+    <a mat-button [routerLink]="['/blog', model().id]">Weiterlesen</a>
   </mat-card-actions>
 </mat-card>

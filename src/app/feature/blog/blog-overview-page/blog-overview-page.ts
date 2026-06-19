@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { BlogCard } from '../../../shared/blog-card/blog-card';
 import { Blog } from '../../../shared/blog-card/blog.model';
-import blogData from '../../../data/blogs.json';
+import { BlogService } from '../../../shared/blog.service';
 
 @Component({
   selector: 'app-blog-overview-page',
@@ -11,8 +11,10 @@ import blogData from '../../../data/blogs.json';
   styleUrl: './blog-overview-page.scss',
 })
 export class BlogOverviewPage {
-  /** Blog-Daten aus der JSON-Datei, getypt auf das Blog-Interface. */
-  protected readonly blogs = signal<Blog[]>(blogData as Blog[]);
+  private readonly blogService = inject(BlogService);
+
+  /** Blog-Daten aus dem BlogService. */
+  protected readonly blogs = signal<Blog[]>(this.blogService.getAll());
 
   /**
    * Reagiert auf das `liked`-Event einer BlogCard und togglet den Like-Status

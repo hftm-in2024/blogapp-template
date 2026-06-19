@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { BlogOverviewPage } from './blog-overview-page';
 
@@ -9,6 +10,7 @@ describe('BlogOverviewPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BlogOverviewPage],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BlogOverviewPage);
@@ -18,5 +20,10 @@ describe('BlogOverviewPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('lädt die Blog-Posts über den BlogService und rendert sie', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelectorAll('app-blog-card').length).toBeGreaterThan(0);
   });
 });
