@@ -1,0 +1,15 @@
+.blog-overview {
+  padding: 1rem;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  // Standard ist `stretch` — so bekommen alle Karten einer Reihe dieselbe Höhe.
+}
+
+.empty-state {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+}
