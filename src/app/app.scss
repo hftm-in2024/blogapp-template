@@ -40,4 +40,8 @@
   a {
     color: var(--mat-sys-primary);
   }
+  .active-link {
+    text-decoration: underline;
+    font-weight: bold;
+  }
 }

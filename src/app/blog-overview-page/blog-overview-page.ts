@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BlogCardComponent } from '../blog-card/blog-card';
+import { BlogService } from '../shared/blog';
 import { Blog } from '../models/blog';
-import blogData from '../data/blogs.json';
 
 @Component({
   selector: 'app-blog-overview-page',
@@ -11,7 +11,9 @@ import blogData from '../data/blogs.json';
   styleUrl: './blog-overview-page.scss',
 })
 export class BlogOverviewPageComponent {
-  blogs: Blog[] = blogData as Blog[];
+  private blogService = inject(BlogService);
+
+  blogs: Blog[] = this.blogService.getAll();
 
   toggleLike(blogId: number): void {
     this.blogs = this.blogs.map((blog) => {
@@ -19,12 +21,13 @@ export class BlogOverviewPageComponent {
         return blog;
       }
 
-      const liked = !blog.likedByMe;
+      const wasLiked = blog.likedByMe === true;
+      const likedByMe = !wasLiked;
 
       return {
         ...blog,
-        likedByMe: liked,
-        likes: liked ? blog.likes + 1 : blog.likes - 1,
+        likedByMe,
+        likes: likedByMe ? blog.likes + 1 : blog.likes - 1,
       };
     });
   }

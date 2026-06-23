@@ -1,9 +1,18 @@
 <mat-toolbar color="primary">
   <span>{{ title }}</span>
+
   <span class="spacer"></span>
+
+  <a
+    mat-button
+    routerLink="/"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Übersicht
+  </a>
 </mat-toolbar>
 
 <main class="content">
-  <app-blog-overview-page />
   <router-outlet />
 </main>

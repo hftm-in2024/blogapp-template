@@ -1,0 +1,13 @@
+@if (blog) {
+  <article class="blog-detail">
+    @if (blog.headerImageUrl) {
+      <img [src]="blog.headerImageUrl" [alt]="blog.title" />
+    }
+
+    <h1>{{ blog.title }}</h1>
+    <p>Von {{ blog.author }}</p>
+    <p>{{ blog.contentPreview }}</p>
+  </article>
+} @else {
+  <p>Blog wurde nicht gefunden.</p>
+}
