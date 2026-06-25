@@ -1,11 +1,11 @@
-<mat-card class="example-card" appearance="outlined">
+<mat-card class="example-card" appearance="outlined" (click)="openBlog()">
   <mat-card-header>
     <mat-card-title>{{ blog().title }}</mat-card-title>
     <mat-card-subtitle>{{ blog().author }}</mat-card-subtitle>
   </mat-card-header>
 
   @if (blog().headerImageUrl) {
-    <img matcardImage [src]="blog().headerImageUrl" [alt]="blog().title" />
+    <img matCardImage [src]="blog().headerImageUrl" [alt]="blog().title" />
   }
 
   <mat-card-content>
@@ -13,7 +13,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-icon-button (click)="onLike()">
+    <button mat-icon-button (click)="onLike($event)">
       <mat-icon>
         {{ blog().likedByMe ? 'favorite' : 'favorite_border' }}
       </mat-icon>

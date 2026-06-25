@@ -1,4 +1,5 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Blog } from '../models/blog.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,9 +13,17 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class BlogCard {
   readonly blog = input.required<Blog>();
+
   liked = output<number>();
 
-  onLike() {
+  private router = inject(Router);
+
+  openBlog() {
+    this.router.navigate(['/blog', this.blog().id]);
+  }
+
+  onLike(event: MouseEvent) {
+    event.stopPropagation();
     this.liked.emit(this.blog().id);
   }
 }
