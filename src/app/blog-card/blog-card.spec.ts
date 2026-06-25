@@ -42,7 +42,8 @@ describe('BlogCard', () => {
   it('should emit blog id when onLike is called', () => {
     const emitSpy = vi.spyOn(component.liked, 'emit');
 
-    component.onLike();
+    const event = new MouseEvent('click');
+    component.onLike(event);
 
     expect(emitSpy).toHaveBeenCalledWith(mockBlog.id);
   });
