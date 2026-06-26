@@ -41,3 +41,28 @@
     color: var(--mat-sys-primary);
   }
 }
+
+mat-toolbar {
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+mat-toolbar a {
+  color: var(--mat-sys-on-surface);
+}
+
+mat-toolbar a.active-link {
+  color: var(--mat-sys-primary);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+// ... existing code ...
+.content {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}

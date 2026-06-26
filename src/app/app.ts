@@ -11,7 +11,7 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = 'HFTM Web Applications (IN353)';
+  protected readonly title = "Fabio's Blog";
 
   protected isDarkMode = false;
 
