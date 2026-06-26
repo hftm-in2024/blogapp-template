@@ -1,0 +1,18 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.about {
+  @include m.content-container(v.$content-narrow-width, 0);
+  padding-block: v.$spacing-lg;
+
+  mat-card {
+    border-radius: v.$radius-lg;
+    box-shadow: var(--mat-sys-level1);
+  }
+
+  mat-card-content {
+    color: var(--mat-sys-on-surface-variant);
+    line-height: 1.6;
+    padding-block: v.$spacing-md;
+  }
+}

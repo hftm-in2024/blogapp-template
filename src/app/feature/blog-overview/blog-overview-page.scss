@@ -1,0 +1,23 @@
+@use '../../../styles/variables' as v;
+@use '../../../styles/mixins' as m;
+
+.blog-overview {
+  padding-block: v.$spacing-lg;
+
+  h1 {
+    margin: 0 0 v.$spacing-lg;
+    font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+    color: var(--mat-sys-on-background);
+  }
+}
+
+.blog-grid {
+  @include m.responsive-grid();
+}
+
+.empty-state {
+  color: var(--mat-sys-on-surface-variant);
+  font-style: italic;
+  padding: v.$spacing-xl;
+  text-align: center;
+}
