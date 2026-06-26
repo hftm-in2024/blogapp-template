@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, convertToParamMap } from '@angular/router';
 
 import { blogResolver } from './blog.resolver';
-import { BlogService } from '../../../shared/blog.service';
+import { BlogService } from '../blog.service';
 
 describe('blogResolver', () => {
   let blogService: BlogService;

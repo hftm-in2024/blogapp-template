@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 
 import { BlogCard } from '../../../shared/blog-card/blog-card';
 import { Blog } from '../../../shared/blog-card/blog.model';
-import { BlogService } from '../../../shared/blog.service';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-blog-overview-page',

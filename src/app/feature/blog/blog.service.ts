@@ -1,7 +1,7 @@
 import { Service } from '@angular/core';
 
-import { Blog } from './blog-card/blog.model';
-import blogData from '../data/blogs.json';
+import { Blog } from '../../shared/blog-card/blog.model';
+import blogData from '../../data/blogs.json';
 
 /**
  * Zentraler Service für die Blog-Daten. Hält die Posts aus `blogs.json`
