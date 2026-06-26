@@ -9,14 +9,11 @@
   transition:
     box-shadow 0.2s ease,
     border-color 0.2s ease;
+  background: var(--mat-sys-surface-container);
+  color: var(--mat-sys-on-surface);
 }
 
 .example-card:hover {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   border-color: rgba(0, 0, 0, 0.25);
-}
-
-img {
-  height: 220px;
-  object-fit: cover;
 }

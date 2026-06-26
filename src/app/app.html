@@ -13,6 +13,10 @@
   </a>
 
   <a mat-button routerLink="/about" routerLinkActive="active-link"> About </a>
+
+  <button mat-icon-button (click)="toggleDarkMode()">
+    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>
 
 <main class="content">
