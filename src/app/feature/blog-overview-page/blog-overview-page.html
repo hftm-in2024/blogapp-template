@@ -4,6 +4,6 @@
       <app-blog-card [blog]="blog" (liked)="toggleLike($event)" />
     </div>
   } @empty {
-    <p>Keine Blog-Posts vorhanden.</p>
+    <p class="empty-state">Keine Blog-Posts vorhanden.</p>
   }
 </div>

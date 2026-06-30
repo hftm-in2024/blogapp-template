@@ -1,5 +1,10 @@
-<mat-toolbar color="primary">
-  <span>{{ title }}</span>
+<mat-toolbar class="app-toolbar">
+  <span class="brand">
+    <mat-icon class="brand-icon" aria-hidden="true">article</mat-icon>
+    <a class="brand-link" routerLink="/" aria-label="Zur Startseite">
+      {{ title }}
+    </a>
+  </span>
 
   <span class="spacer"></span>
 
@@ -14,8 +19,15 @@
 
   <a mat-button routerLink="/about" routerLinkActive="active-link"> About </a>
 
-  <button mat-icon-button (click)="toggleDarkMode()">
-    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  <button
+    mat-icon-button
+    type="button"
+    class="theme-toggle"
+    (click)="toggleDarkMode()"
+    [attr.aria-pressed]="isDarkMode()"
+    [attr.aria-label]="isDarkMode() ? 'Dark Mode deaktivieren' : 'Dark Mode aktivieren'"
+  >
+    <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
   </button>
 </mat-toolbar>
 

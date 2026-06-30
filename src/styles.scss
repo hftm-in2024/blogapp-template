@@ -1,14 +1,10 @@
-// Theme Adress: http://material-foundation.github.io/material-theme-builder/?primary=%23B4BEFE&tertiary=%23B4BEFE&bodyFont=Fira+Code&displayFont=Fira+Code&colorMatch=false
-
 @use '@angular/material' as mat;
 @use './app/shared/custom-palette' as custom;
-@use './app/shared/theme-colors' as theme-colors;
+@use './styles/variables' as vars;
 
 * {
-  font-family: 'JetBrains Mono', monospace;
+  box-sizing: border-box;
 }
-
-$font-family: 'JetBrains Mono', monospace;
 
 $light-theme: mat.define-theme(
   (
@@ -18,8 +14,8 @@ $light-theme: mat.define-theme(
       tertiary: custom.$custom-palette,
     ),
     typography: (
-      brand-family: $font-family,
-      plain-family: $font-family,
+      brand-family: vars.$font-family,
+      plain-family: vars.$font-family,
     ),
   )
 );
@@ -32,21 +28,23 @@ $dark-theme: mat.define-theme(
       tertiary: custom.$custom-palette,
     ),
     typography: (
-      brand-family: $font-family,
-      plain-family: $font-family,
+      brand-family: vars.$font-family,
+      plain-family: vars.$font-family,
     ),
   )
 );
 
 html {
   @include mat.all-component-themes($light-theme);
-  @include theme-colors.light-colors;
+  @include mat.system-level-colors($light-theme);
+  @include mat.system-level-typography($light-theme);
   color-scheme: light;
 }
 
 html.dark-theme {
   @include mat.all-component-colors($dark-theme);
-  @include theme-colors.dark-colors;
+  @include mat.system-level-colors($dark-theme);
+  @include mat.system-level-typography($dark-theme);
   color-scheme: dark;
 }
 
@@ -61,7 +59,7 @@ button,
 input,
 textarea,
 select {
-  font-family: $font-family;
+  font-family: vars.$font-family;
 }
 
 body {

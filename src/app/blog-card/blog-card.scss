@@ -1,19 +1,54 @@
-.example-header-image {
-  background-size: cover;
-}
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
-.example-card {
-  width: 100%;
+:host {
+  display: block;
   height: 100%;
-  cursor: pointer;
-  transition:
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-  background: var(--mat-sys-surface-container);
-  color: var(--mat-sys-on-surface);
 }
 
-.example-card:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-  border-color: rgba(0, 0, 0, 0.25);
+.blog-card {
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  @include mixins.card-surface;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.blog-card:hover,
+.blog-card:focus-within {
+  transform: translateY(-4px);
+  border-color: var(--mat-sys-primary);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.16);
+}
+
+.blog-card__header,
+.blog-card__content,
+.blog-card__actions {
+  padding-inline: vars.$spacing-lg;
+}
+
+.blog-card__header {
+  padding-top: vars.$spacing-lg;
+  padding-bottom: vars.$spacing-md;
+}
+
+.blog-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-card__content {
+  padding-bottom: vars.$spacing-md;
+}
+
+.blog-card__actions {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding-bottom: vars.$spacing-lg;
 }
