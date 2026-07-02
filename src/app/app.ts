@@ -20,10 +20,17 @@ import { MatButtonModule } from '@angular/material/button';
 export class App {
   protected readonly title = 'HFTM Web Applications (IN353)';
 
-  isDarkMode = false;
+  isDarkMode = localStorage.getItem('theme') === 'dark';
+
+  constructor() {
+    document.body.classList.toggle('dark-theme', this.isDarkMode);
+  }
 
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
+
     document.body.classList.toggle('dark-theme', this.isDarkMode);
+
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
 }
