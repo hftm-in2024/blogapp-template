@@ -10,6 +10,11 @@
   padding: 0 $spacing-md;
 }
 
+mat-toolbar {
+  background: linear-gradient(90deg, var(--mat-sys-primary), var(--mat-sys-primary-container));
+
+  color: var(--mat-sys-on-primary);
+}
 .active-link {
   font-weight: bold;
 }
