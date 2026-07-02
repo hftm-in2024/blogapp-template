@@ -24,10 +24,10 @@
     type="button"
     class="theme-toggle"
     (click)="toggleDarkMode()"
-    [attr.aria-pressed]="isDarkMode()"
-    [attr.aria-label]="isDarkMode() ? 'Dark Mode deaktivieren' : 'Dark Mode aktivieren'"
+    [attr.aria-pressed]="isDarkMode"
+    [attr.aria-label]="isDarkMode ? 'Dark Mode deaktivieren' : 'Dark Mode aktivieren'"
   >
-    <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
   </button>
 </mat-toolbar>
 
