@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { Blog } from '../models/blog.model';
+import { Blog } from '../../models/blog.model';
 import { blogResolver } from './blog-resolver';
 
 describe('blogResolver', () => {

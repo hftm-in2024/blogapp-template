@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import blogsData from '../data/blogs.json';
-import { Blog } from '../models/blog.model';
+import blogsData from '../../data/blogs.json';
+import { Blog } from '../../models/blog.model';
 
 @Injectable({
   providedIn: 'root',
