@@ -1,3 +1,26 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { BlogOverviewPageComponent } from './feature/blog/blog-overview-page/blog-overview-page';
+import { blogDetailResolver } from './feature/blog/blog-detail.resolver';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: BlogOverviewPageComponent,
+  },
+  {
+    path: 'blog/:id',
+    loadComponent: () =>
+      import('./feature/blog/blog-detail-page/blog-detail-page').then(
+        (m) => m.BlogDetailPageComponent,
+      ),
+    resolve: {
+      blog: blogDetailResolver,
+    },
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./not-found-page/not-found-page').then((m) => m.NotFoundPageComponent),
+  },
+];
