@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { BlogOverviewPage } from './feature/blog-overview-page/blog-overview-page';
-import { blogResolver } from './shared/blog-resolver';
+import { blogResolver } from './feature/blog/blog-resolver';
 
 export const routes: Routes = [
   {
