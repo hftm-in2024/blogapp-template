@@ -29,8 +29,6 @@ describe('App', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('mat-toolbar')?.textContent).toContain(
-      'HFTM Web Applications (IN353)',
-    );
+    expect(compiled.querySelector('mat-toolbar')?.textContent).toContain("Fabio's Blog");
   });
 });

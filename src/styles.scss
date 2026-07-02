@@ -1,19 +1,51 @@
 @use '@angular/material' as mat;
+@use './app/shared/custom-palette' as custom;
+@use './styles/variables' as vars;
 
-// ── Light theme (azure primary) ──
+* {
+  box-sizing: border-box;
+}
+
 $light-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: custom.$custom-palette,
+      tertiary: custom.$custom-palette,
+    ),
+    typography: (
+      brand-family: vars.$font-family,
+      plain-family: vars.$font-family,
     ),
   )
 );
 
-// ── Apply light theme as default on <html> ──
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: custom.$custom-palette,
+      tertiary: custom.$custom-palette,
+    ),
+    typography: (
+      brand-family: vars.$font-family,
+      plain-family: vars.$font-family,
+    ),
+  )
+);
+
 html {
   @include mat.all-component-themes($light-theme);
+  @include mat.system-level-colors($light-theme);
+  @include mat.system-level-typography($light-theme);
+  color-scheme: light;
+}
+
+html.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  @include mat.system-level-colors($dark-theme);
+  @include mat.system-level-typography($dark-theme);
+  color-scheme: dark;
 }
 
 html,
@@ -21,7 +53,17 @@ body {
   height: 100%;
 }
 
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: vars.$font-family;
+}
+
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: var(--mat-sys-background);
+  color: var(--mat-sys-on-background);
 }

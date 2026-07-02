@@ -1,0 +1,12 @@
+@use '../../../styles/variables' as vars;
+
+:host {
+  display: block;
+}
+
+p {
+  max-width: 42rem;
+  margin: vars.$spacing-xl auto;
+  padding: 0 vars.$spacing-md;
+  color: var(--mat-sys-on-background);
+}

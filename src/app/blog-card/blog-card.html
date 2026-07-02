@@ -1,19 +1,19 @@
-<mat-card class="example-card" appearance="outlined" (click)="openBlog()">
-  <mat-card-header>
+<mat-card class="blog-card" appearance="outlined" (click)="openBlog()">
+  @if (blog().headerImageUrl) {
+    <img class="blog-card__image" matCardImage [src]="blog().headerImageUrl" [alt]="blog().title" />
+  }
+
+  <mat-card-header class="blog-card__header">
     <mat-card-title>{{ blog().title }}</mat-card-title>
     <mat-card-subtitle>{{ blog().author }}</mat-card-subtitle>
   </mat-card-header>
 
-  @if (blog().headerImageUrl) {
-    <img matCardImage [src]="blog().headerImageUrl" [alt]="blog().title" />
-  }
-
-  <mat-card-content>
+  <mat-card-content class="blog-card__content">
     <p>{{ blog().contentPreview }}</p>
   </mat-card-content>
 
-  <mat-card-actions>
-    <button mat-icon-button (click)="onLike($event)">
+  <mat-card-actions class="blog-card__actions">
+    <button mat-icon-button type="button" (click)="onLike($event)">
       <mat-icon>
         {{ blog().likedByMe ? 'favorite' : 'favorite_border' }}
       </mat-icon>
@@ -21,6 +21,6 @@
 
     <span>{{ blog().likes }}</span>
 
-    <button mat-button>SHARE</button>
+    <button mat-button type="button">SHARE</button>
   </mat-card-actions>
 </mat-card>

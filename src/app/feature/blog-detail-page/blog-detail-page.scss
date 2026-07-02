@@ -1,0 +1,37 @@
+@use '../../../styles/variables' as vars;
+
+.blog-detail {
+  max-width: 42rem;
+  margin: vars.$spacing-xl auto;
+  padding-inline: vars.$spacing-md;
+}
+
+.blog-detail img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: vars.$radius-lg;
+  margin-bottom: vars.$spacing-lg;
+}
+
+.blog-detail h1,
+.blog-detail .meta,
+.blog-detail p,
+.blog-detail a {
+  margin-inline: 0;
+}
+
+.blog-detail h1 {
+  margin-top: 0;
+  margin-bottom: vars.$spacing-sm;
+}
+
+.blog-detail .meta {
+  color: var(--mat-sys-on-surface-variant);
+  margin-bottom: vars.$spacing-md;
+}
+
+.blog-detail p {
+  margin-bottom: vars.$spacing-lg;
+}
