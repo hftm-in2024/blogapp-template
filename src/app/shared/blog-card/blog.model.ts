@@ -19,3 +19,10 @@ export interface Blog {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface BlogResponse {
+  data: Blog[];
+  total: number;
+  page: number;
+  limit: number;
+}

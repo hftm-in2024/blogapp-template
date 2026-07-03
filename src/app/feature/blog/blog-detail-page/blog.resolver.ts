@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 
-import { Blog } from '../../../shared/blog-card/blog.model';
 import { BlogService } from '../blog.service';
+import { Blog } from '../../../shared/blog-card/blog.model';
 
 /** Lädt den passenden Blog-Post anhand der Route-ID, bevor die Detail-Seite aktiviert wird. */
 export const blogResolver: ResolveFn<Blog | undefined> = (route) => {

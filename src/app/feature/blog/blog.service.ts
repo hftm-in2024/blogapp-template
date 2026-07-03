@@ -1,7 +1,9 @@
-import { Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
 
-import { Blog } from '../../shared/blog-card/blog.model';
-import blogData from '../../data/blogs.json';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { firstValueFrom } from 'rxjs';
+import { Blog, BlogResponse } from '../../shared/blog-card/blog.model';
 
 /**
  * Zentraler Service für die Blog-Daten. Hält die Posts aus `blogs.json`
@@ -9,13 +11,17 @@ import blogData from '../../data/blogs.json';
  */
 @Service()
 export class BlogService {
-  private readonly blogs: Blog[] = blogData as Blog[];
+  #http = inject(HttpClient);
 
-  getAll(): Blog[] {
-    return this.blogs;
+  async getAll(): Promise<BlogResponse> {
+    return firstValueFrom(this.#http.get<BlogResponse>(environment.api + '/entries'));
   }
 
-  getById(id: number): Blog | undefined {
-    return this.blogs.find((blog) => blog.id === id);
+  async getById(id: number): Promise<Blog | undefined> {
+    return firstValueFrom(this.#http.get<Blog>(environment.api + '/entries/' + id));
+  }
+
+  async like(id: number): Promise<void> {
+    await firstValueFrom(this.#http.post(environment.api + '/entries/' + id + '/like-info', {}));
   }
 }
