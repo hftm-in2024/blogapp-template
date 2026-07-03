@@ -1,16 +1,20 @@
+@use 'variables' as vars;
+
 .spacer {
   flex: 1 1 auto;
 }
 
 .nav-links {
   display: flex;
-  gap: 1rem;
+  gap: vars.$spacing-md;
 
   a {
     color: inherit;
     text-decoration: none;
-    padding: 0.25rem 0;
+    padding: vars.$spacing-xs 0;
     border-bottom: 2px solid transparent;
+    font-weight: 500;
+    transition: border-color 0.2s ease;
 
     &.active-link {
       border-bottom-color: currentColor;
@@ -18,8 +22,12 @@
   }
 }
 
+.theme-toggle {
+  margin-left: vars.$spacing-sm;
+}
+
 .content {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 900px;
+  margin: vars.$spacing-xl auto;
+  padding: 0 vars.$spacing-md;
 }

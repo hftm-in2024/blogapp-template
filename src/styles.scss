@@ -1,19 +1,46 @@
 @use '@angular/material' as mat;
+@use 'variables' as vars;
 
-// ── Light theme (azure primary) ──
+// ── Aufgabe 1: Eigene Farbpalette (violet + rose) ──
 $light-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: mat.$violet-palette,
+      tertiary: mat.$rose-palette,
     ),
   )
 );
 
-// ── Apply light theme as default on <html> ──
+// ── Aufgabe 2: Dark-Mode-Palette ──
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$rose-palette,
+    ),
+  )
+);
+
+// Light theme default
 html {
   @include mat.all-component-themes($light-theme);
+}
+
+// Aufgabe 2: Dark theme via CSS class (gesetzt durch Toggle-Button)
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  color-scheme: dark;
+}
+
+// Aufgabe 5: System-Einstellung respektieren (prefers-color-scheme)
+// html:not(.light-theme) verhindert, dass OS-Einstellung den manuellen Light-Toggle überschreibt
+@media (prefers-color-scheme: dark) {
+  html:not(.light-theme) {
+    @include mat.all-component-colors($dark-theme);
+    color-scheme: dark;
+  }
 }
 
 html,

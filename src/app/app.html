@@ -7,6 +7,15 @@
     >
     <a routerLink="/about" routerLinkActive="active-link">Über uns</a>
   </nav>
+  <button
+    mat-icon-button
+    class="theme-toggle"
+    (click)="toggleTheme()"
+    [matTooltip]="isDarkMode() ? 'Light Mode aktivieren' : 'Dark Mode aktivieren'"
+    [attr.aria-label]="isDarkMode() ? 'Light Mode aktivieren' : 'Dark Mode aktivieren'"
+  >
+    <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>
 
 <main class="content">

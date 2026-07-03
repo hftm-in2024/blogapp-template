@@ -1,15 +1,15 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
 .blog-overview {
-  padding: 1rem;
+  padding: vars.$spacing-md;
 }
 
 .blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-  // Standard ist `stretch` — so bekommen alle Karten einer Reihe dieselbe Höhe.
+  @include mix.responsive-grid(300px);
 }
 
 .empty-state {
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--mat-sys-on-surface-variant);
   font-style: italic;
 }
