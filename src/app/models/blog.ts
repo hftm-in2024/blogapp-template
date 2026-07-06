@@ -11,3 +11,7 @@ export interface Blog {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface BlogInterface {
+  data: Blog[];
+}
