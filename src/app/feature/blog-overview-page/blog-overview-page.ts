@@ -15,10 +15,17 @@ export class BlogOverviewPage implements OnInit {
   private blogService = inject(BlogService);
 
   blogs = signal<Blog[]>([]);
+  loading = signal(false);
 
   async ngOnInit(): Promise<void> {
-    const blogs = await this.blogService.getAll();
-    this.blogs.set(blogs);
+    this.loading.set(true);
+
+    try {
+      const blogs = await this.blogService.getAll();
+      this.blogs.set(blogs);
+    } finally {
+      this.loading.set(false);
+    }
   }
 
   toggleLike(blogId: number): void {
