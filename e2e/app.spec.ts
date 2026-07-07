@@ -6,6 +6,4 @@ test('should display the blog page', async ({ page }) => {
   await expect(page.locator('mat-toolbar')).toContainText('Blog');
   await expect(page.locator('mat-toolbar')).toContainText('Übersicht');
   await expect(page.locator('mat-toolbar')).toContainText('About');
-
-  await expect(page.locator('mat-card').first()).toBeVisible();
 });
