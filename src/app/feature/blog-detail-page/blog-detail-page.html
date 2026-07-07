@@ -1,0 +1,22 @@
+<h1>{{ blog.title }}</h1>
+
+<p>
+  <strong>Autor:</strong>
+  {{ blog.author }}
+</p>
+
+@if (blog.headerImageUrl) {
+  <img [src]="blog.headerImageUrl" [alt]="blog.title" />
+}
+
+<p>{{ blog.contentPreview }}</p>
+
+<div class="likes">
+  <button mat-icon-button (click)="toggleLike()">
+    <mat-icon [class.liked]="blog.likedByMe">
+      {{ blog.likedByMe ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+  </button>
+
+  <span>{{ blog.likes }}</span>
+</div>
