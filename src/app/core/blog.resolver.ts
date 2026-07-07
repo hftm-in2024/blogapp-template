@@ -3,10 +3,8 @@ import { ResolveFn } from '@angular/router';
 
 import { BlogService } from '../shared/blog';
 
-export const blogResolver: ResolveFn<unknown> = (route) => {
-  console.log('Resolver executado');
-
+export const blogResolver: ResolveFn<unknown> = async (route) => {
   const service = inject(BlogService);
 
-  return service.getById(Number(route.paramMap.get('id')));
+  return await service.getById(Number(route.paramMap.get('id')));
 };

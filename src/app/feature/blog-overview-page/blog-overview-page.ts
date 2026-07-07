@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 
 import { Blog } from '../../core/utils/blog-model';
 import { BlogCardComponent } from '../blog-card/blog-card';
@@ -11,24 +11,29 @@ import { BlogService } from '../../shared/blog';
   templateUrl: './blog-overview-page.html',
   styleUrl: './blog-overview-page.scss',
 })
-export class BlogOverviewPage {
+export class BlogOverviewPage implements OnInit {
   private blogService = inject(BlogService);
 
-  blogs: Blog[] = this.blogService.getAll();
+  blogs = signal<Blog[]>([]);
+
+  async ngOnInit(): Promise<void> {
+    const blogs = await this.blogService.getAll();
+    this.blogs.set(blogs);
+  }
 
   toggleLike(blogId: number): void {
-    const blog = this.blogs.find((b) => b.id === blogId);
+    this.blogs.update((blogs) =>
+      blogs.map((blog) => {
+        if (blog.id !== blogId) {
+          return blog;
+        }
 
-    if (!blog) {
-      return;
-    }
-
-    blog.likedByMe = !blog.likedByMe;
-
-    if (blog.likedByMe) {
-      blog.likes++;
-    } else {
-      blog.likes--;
-    }
+        return {
+          ...blog,
+          likedByMe: !blog.likedByMe,
+          likes: blog.likedByMe ? blog.likes - 1 : blog.likes + 1,
+        };
+      }),
+    );
   }
 }
