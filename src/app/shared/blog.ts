@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-
+import { BlogArraySchema } from '../core/utils/blog.schema';
 import { Blog } from '../core/utils/blog-model';
 
 interface BlogResponse {
@@ -25,7 +25,14 @@ export class BlogService {
     try {
       const response = await firstValueFrom(this.http.get<BlogResponse>(this.apiUrl));
 
-      return response.data;
+      const result = BlogArraySchema.safeParse(response.data);
+
+      if (!result.success) {
+        console.error('Ungültige API-Daten:', result.error);
+        return [];
+      }
+
+      return result.data;
     } catch (error) {
       console.error('Fehler beim Laden der Blogs', error);
       return [];
