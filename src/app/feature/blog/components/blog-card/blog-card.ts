@@ -15,8 +15,18 @@ export class BlogCard {
   model = input.required<Blog>();
 
   liked = output<number>();
+  edited = output<Blog>();
+  deleted = output<number>();
 
   onLike(): void {
     this.liked.emit(this.model().id);
+  }
+
+  onEdit(): void {
+    this.edited.emit(this.model());
+  }
+
+  onDelete(): void {
+    this.deleted.emit(this.model().id);
   }
 }
