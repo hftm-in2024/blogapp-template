@@ -1,0 +1,22 @@
+@let posts = blogs();
+
+<section class="blog-list">
+  <header class="blog-list__intro">
+    <h1>Aktuelle Beiträge</h1>
+    <p>Geschichten, Tutorials und Erfahrungen aus der Web-Development-Welt.</p>
+  </header>
+
+  @if (posts === null) {
+    <div class="blog-list__loading">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else {
+    <div class="blog-list__grid">
+      @for (b of posts; track b.id) {
+        <app-blog-card [blog]="b" (like)="onLike($event)" />
+      } @empty {
+        <p class="blog-list__empty">Noch keine Beiträge vorhanden.</p>
+      }
+    </div>
+  }
+</section>
