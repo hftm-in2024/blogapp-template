@@ -59,7 +59,7 @@ export class BlogService {
 
   async updateBlog(id: number, blog: Blog): Promise<Blog> {
     try {
-      return await firstValueFrom(this.http.put<Blog>(`${this.apiUrl}/${id}`, blog));
+      return await firstValueFrom(this.http.patch<Blog>(`${this.apiUrl}/${id}`, blog));
     } catch (error) {
       console.error(`Blog mit ID ${id} konnte nicht aktualisiert werden:`, error);
       throw error;
