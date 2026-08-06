@@ -1,0 +1,35 @@
+<section>
+  <div class="page-heading">
+    <h1>Blog-Übersicht</h1>
+    <button mat-flat-button type="button" (click)="createBlog()">Neuen Blog erstellen</button>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-state">
+      <mat-spinner diameter="44" />
+      <span>Laden...</span>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-state">
+      <p>{{ errorMessage() }}</p>
+      <button mat-button type="button" (click)="loadBlogs()">Erneut versuchen</button>
+    </div>
+  }
+
+  @if (!loading()) {
+    <div class="blog-grid">
+      @for (blog of blogs(); track blog.id) {
+        <app-blog-card
+          [model]="blog"
+          (liked)="onBlogLiked($event)"
+          (edited)="editBlog($event)"
+          (deleted)="deleteBlog($event)"
+        />
+      } @empty {
+        <p>Keine Blog-Posts vorhanden.</p>
+      }
+    </div>
+  }
+</section>
