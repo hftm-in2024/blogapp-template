@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
 
-import { BlogOverviewPage } from './feature/blog/blog-overview-page/blog-overview-page';
-import { blogResolver } from './feature/blog/blog-detail-page/blog.resolver';
-import { entriesResolver } from './feature/blog/blog-overview-page/entries-resolver';
-
 export const routes: Routes = [
-  { path: '', component: BlogOverviewPage, resolve: { blogs: entriesResolver } },
   {
-    path: 'blog/:id',
+    path: '',
     loadComponent: () =>
-      import('./feature/blog/blog-detail-page/blog-detail-page').then((m) => m.BlogDetailPage),
-    resolve: { blog: blogResolver },
+      import('./feature/blog/blog-overview-page/blog-overview-page').then(
+        (m) => m.BlogOverviewPage,
+      ),
+  },
+  {
+    path: 'blog',
+    loadChildren: () => import('./feature/blog/blog-detail-page/blog-detail-page.routes'),
   },
   {
     path: 'about',

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { BlogDetail } from '../../../shared/blog-card/blog.model';
 
 @Component({
   selector: 'app-blog-detail-page',
@@ -13,5 +13,5 @@ export class BlogDetailPage {
   readonly id = input.required<string>();
 
   /** Vom `blogResolver` vorgeladener Blog-Post, ebenfalls automatisch als Input gebunden. */
-  readonly blog = input<Blog>();
+  readonly blog = input<BlogDetail>();
 }

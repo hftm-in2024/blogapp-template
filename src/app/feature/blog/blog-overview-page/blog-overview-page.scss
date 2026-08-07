@@ -9,6 +9,11 @@
   @include mix.responsive-grid(300px);
 }
 
+.error-state {
+  color: var(--mat-sys-error);
+}
+
+.loading-state,
 .empty-state {
   color: var(--mat-sys-on-surface-variant);
   font-style: italic;
