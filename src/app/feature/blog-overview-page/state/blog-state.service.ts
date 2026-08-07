@@ -1,7 +1,8 @@
 import { computed, effect, inject, Service, signal } from '@angular/core';
 
-import { BlogService } from './blog.service';
-import { Blog } from '../../shared/blog-card/blog.model';
+import { BlogOverviewService } from '../data/blog-overview.service';
+import { storeLogger } from '../../../core/dev-tools';
+import { Blog } from '../../../shared/blog-card/blog.model';
 
 /** Sentinel-Wert für "kein Filter aktiv". */
 export const ALL_AUTHORS = 'all';
@@ -37,7 +38,7 @@ interface BlogState {
  */
 @Service()
 export class BlogStateService {
-  readonly #blogService = inject(BlogService);
+  readonly #blogService = inject(BlogOverviewService);
 
   // --- State -------------------------------------------------------------
 
@@ -77,6 +78,9 @@ export class BlogStateService {
   constructor() {
     // Side-Effect: gewählten Autor persistieren, sobald er sich ändert.
     effect(() => localStorage.setItem(AUTHOR_STORAGE_KEY, this.selectedAuthor()));
+
+    // Jede State-Änderung in der Konsole mitschreiben (Redux-DevTools-Ersatz).
+    storeLogger.attachState(this.#state, { name: 'blog' });
   }
 
   // --- Actions -----------------------------------------------------------

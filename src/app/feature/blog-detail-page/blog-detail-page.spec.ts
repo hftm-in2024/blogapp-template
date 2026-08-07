@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlogDetailPage } from './blog-detail-page';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { Blog } from '../../shared/blog-card/blog.model';
 
 const SAMPLE_BLOG: Blog = {
   id: 1,

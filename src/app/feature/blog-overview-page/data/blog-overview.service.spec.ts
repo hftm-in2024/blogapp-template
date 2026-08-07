@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { BlogService } from './blog.service';
-import { environment } from '../../../environments/environment';
-import { BlogResponse } from '../../shared/blog-card/blog.model';
+import { BlogOverviewService } from './blog-overview.service';
+import { environment } from '../../../../environments/environment';
+import { BlogResponse } from '../../../shared/blog-card/blog.model';
 
 const RESPONSE: BlogResponse = {
   data: [
@@ -26,15 +26,15 @@ const RESPONSE: BlogResponse = {
   limit: 10,
 };
 
-describe('BlogService', () => {
-  let service: BlogService;
+describe('BlogOverviewService', () => {
+  let service: BlogOverviewService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
     });
-    service = TestBed.inject(BlogService);
+    service = TestBed.inject(BlogOverviewService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
@@ -49,13 +49,6 @@ describe('BlogService', () => {
     httpMock.expectOne(environment.api + '/entries').flush(RESPONSE);
 
     await expect(result).resolves.toEqual(RESPONSE);
-  });
-
-  it('getById() lädt den passenden Post', async () => {
-    const result = service.getById(1);
-    httpMock.expectOne(environment.api + '/entries/1').flush(RESPONSE.data[0]);
-
-    await expect(result).resolves.toEqual(RESPONSE.data[0]);
   });
 
   it('like() sendet einen POST auf den like-info-Endpoint', async () => {

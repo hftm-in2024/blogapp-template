@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { BlogCard } from '../../../shared/blog-card/blog-card';
-import { ALL_AUTHORS, BlogStateService } from '../blog-state.service';
+import { BlogCard } from '../../shared/blog-card/blog-card';
+import { ALL_AUTHORS, BlogStateService } from './state/blog-state.service';
 
 @Component({
   selector: 'app-blog-overview-page',

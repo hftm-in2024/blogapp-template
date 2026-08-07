@@ -3,8 +3,8 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, convertToParamMap } from '
 import { vi } from 'vitest';
 
 import { blogResolver } from './blog.resolver';
-import { BlogService } from '../blog.service';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { BlogDetailService } from './data/blog-detail.service';
+import { Blog } from '../../shared/blog-card/blog.model';
 
 const SAMPLE_BLOG: Blog = {
   id: 1,
@@ -25,7 +25,7 @@ describe('blogResolver', () => {
   beforeEach(() => {
     getById.mockReset();
     TestBed.configureTestingModule({
-      providers: [{ provide: BlogService, useValue: { getById } }],
+      providers: [{ provide: BlogDetailService, useValue: { getById } }],
     });
   });
 

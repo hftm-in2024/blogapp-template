@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
 
-import { BlogOverviewPage } from './feature/blog/blog-overview-page/blog-overview-page';
-import { blogResolver } from './feature/blog/blog-detail-page/blog.resolver';
-
 export const routes: Routes = [
   // Kein Resolver mehr: die Daten holt der BlogStateService, damit Loading- und
   // Error-State in der Komponente sichtbar werden.
-  { path: '', component: BlogOverviewPage },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./feature/blog-overview-page/blog-overview-page').then((m) => m.BlogOverviewPage),
+  },
   {
     path: 'blog/:id',
-    loadComponent: () =>
-      import('./feature/blog/blog-detail-page/blog-detail-page').then((m) => m.BlogDetailPage),
-    resolve: { blog: blogResolver },
+    loadChildren: () =>
+      import('./feature/blog-detail-page/blog-detail-page.routes').then((m) => m.routes),
   },
   {
     path: 'about',

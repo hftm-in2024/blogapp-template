@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { ALL_AUTHORS, BlogStateService } from './blog-state.service';
-import { BlogService } from './blog.service';
-import { Blog, BlogResponse } from '../../shared/blog-card/blog.model';
+import { BlogOverviewService } from '../data/blog-overview.service';
+import { Blog, BlogResponse } from '../../../shared/blog-card/blog.model';
 
 function blog(id: number, author: string, likes = 0): Blog {
   return {
@@ -33,7 +33,7 @@ describe('BlogStateService', () => {
 
   function createStore(): BlogStateService {
     TestBed.configureTestingModule({
-      providers: [{ provide: BlogService, useValue: { getAll, like } }],
+      providers: [{ provide: BlogOverviewService, useValue: { getAll, like } }],
     });
 
     return TestBed.inject(BlogStateService);

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { Blog } from '../../shared/blog-card/blog.model';
 
 @Component({
   selector: 'app-blog-detail-page',

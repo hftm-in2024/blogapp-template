@@ -3,8 +3,8 @@ import { provideRouter } from '@angular/router';
 import { vi } from 'vitest';
 
 import { BlogOverviewPage } from './blog-overview-page';
-import { BlogService } from '../blog.service';
-import { BlogResponse } from '../../../shared/blog-card/blog.model';
+import { BlogOverviewService } from './data/blog-overview.service';
+import { BlogResponse } from '../../shared/blog-card/blog.model';
 
 const RESPONSE: BlogResponse = {
   data: [
@@ -33,7 +33,10 @@ describe('BlogOverviewPage', () => {
   async function createComponent(): Promise<void> {
     await TestBed.configureTestingModule({
       imports: [BlogOverviewPage],
-      providers: [provideRouter([]), { provide: BlogService, useValue: { getAll, like: vi.fn() } }],
+      providers: [
+        provideRouter([]),
+        { provide: BlogOverviewService, useValue: { getAll, like: vi.fn() } },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BlogOverviewPage);
