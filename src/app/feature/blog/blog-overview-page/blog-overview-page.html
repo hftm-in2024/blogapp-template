@@ -1,11 +1,32 @@
 <section class="blog-overview">
-  <h1>Blog-Übersicht</h1>
+  <header class="blog-overview__header">
+    <h1>Blog-Übersicht</h1>
+    <p class="blog-count">{{ state.blogCount() }} Blog-Posts</p>
+  </header>
 
-  <div class="blog-grid">
-    @for (blog of blogs(); track blog.id) {
-      <app-blog-card [model]="blog" (liked)="onLiked($event)" />
-    } @empty {
-      <p class="empty-state">Noch keine Blog-Posts vorhanden.</p>
-    }
-  </div>
+  <label class="blog-filter">
+    <span>Autor</span>
+    <select (change)="onAuthorChange($event)">
+      <option [value]="allAuthors" [selected]="state.selectedAuthor() === allAuthors">Alle</option>
+      @for (author of state.authors(); track author) {
+        <option [value]="author" [selected]="state.selectedAuthor() === author">
+          {{ author }}
+        </option>
+      }
+    </select>
+  </label>
+
+  @if (state.loading()) {
+    <mat-spinner class="loading-state" diameter="40" aria-label="Blog-Posts werden geladen" />
+  } @else if (state.error(); as message) {
+    <p class="error-state" role="alert">{{ message }}</p>
+  } @else {
+    <div class="blog-grid">
+      @for (blog of state.filteredBlogs(); track blog.id) {
+        <app-blog-card [model]="blog" (liked)="onLiked($event)" />
+      } @empty {
+        <p class="empty-state">Noch keine Blog-Posts vorhanden.</p>
+      }
+    </div>
+  }
 </section>

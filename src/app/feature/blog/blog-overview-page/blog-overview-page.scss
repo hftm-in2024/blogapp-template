@@ -9,6 +9,31 @@
   @include mix.responsive-grid(300px);
 }
 
+.blog-overview__header {
+  display: flex;
+  align-items: baseline;
+  gap: vars.$spacing-md;
+}
+
+.blog-count {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.blog-filter {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  margin-bottom: vars.$spacing-md;
+}
+
+.loading-state {
+  margin: vars.$spacing-lg auto;
+}
+
+.error-state {
+  color: var(--mat-sys-error);
+}
+
 .empty-state {
   color: var(--mat-sys-on-surface-variant);
   font-style: italic;

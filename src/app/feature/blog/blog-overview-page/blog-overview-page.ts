@@ -1,26 +1,32 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { BlogCard } from '../../../shared/blog-card/blog-card';
-import { BlogService } from '../blog.service';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { ALL_AUTHORS, BlogStateService } from '../blog-state.service';
 
 @Component({
   selector: 'app-blog-overview-page',
-  imports: [BlogCard],
+  imports: [BlogCard, MatProgressSpinnerModule],
   templateUrl: './blog-overview-page.html',
   styleUrl: './blog-overview-page.scss',
 })
-export class BlogOverviewPage {
-  readonly #blogService = inject(BlogService);
+export class BlogOverviewPage implements OnInit {
+  /** Einziger Datenzugang der Komponente: der zentrale State Store. */
+  protected readonly state = inject(BlogStateService);
 
-  /** Blog-Daten aus dem BlogService. */
-  blogs = input.required<Blog[]>();
+  protected readonly allAuthors = ALL_AUTHORS;
 
-  /**
-   * Reagiert auf das `liked`-Event einer BlogCard und togglet den Like-Status
-   * sowie die Like-Anzahl des betroffenen Posts.
-   */
+  ngOnInit(): void {
+    void this.state.loadBlogs();
+  }
+
+  /** Reagiert auf das `liked`-Event einer BlogCard. */
   onLiked(id: number): void {
-    this.#blogService.like(id);
+    void this.state.like(id);
+  }
+
+  /** Reagiert auf die Auswahl im Autoren-Filter. */
+  onAuthorChange(event: Event): void {
+    this.state.setAuthor((event.target as HTMLSelectElement).value);
   }
 }
