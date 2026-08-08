@@ -26,6 +26,7 @@
   mat-card-actions {
     gap: vars.$spacing-sm;
     padding: vars.$spacing-sm vars.$spacing-md vars.$spacing-md;
+    flex-wrap: wrap;
   }
 }
 

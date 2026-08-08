@@ -2,6 +2,7 @@ export interface Blog {
   id: number;
   title: string;
   contentPreview: string;
+  content?: string;
   author: string;
   likes: number;
   comments: number;

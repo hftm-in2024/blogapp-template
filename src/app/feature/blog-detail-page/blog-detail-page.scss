@@ -25,9 +25,16 @@
   }
 }
 
+.state,
 .not-found {
   padding: vars.$spacing-xl;
   border-radius: vars.$card-radius;
   background: var(--mat-sys-surface-container-low);
   color: var(--mat-sys-on-surface);
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-md;
 }
