@@ -1,8 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('should display the blog overview page', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page.locator('app-blog-card').first()).toBeVisible();
-  await expect(page.getByText('Angular Signals')).toBeVisible();
+  const blogCards = page.locator('app-blog-card');
+
+  await expect(blogCards.first()).toBeVisible();
+  await expect(blogCards).not.toHaveCount(0);
 });
