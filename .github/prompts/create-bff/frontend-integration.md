@@ -212,18 +212,54 @@ export const cookieInterceptor: HttpInterceptorFn = (req, next) => {
 
 The store's own `fetch` calls are not covered by the interceptor — that is why `checkSession()` and `logout()` set `credentials` and the header themselves.
 
+## Switching auth off where no BFF is hosted
+
+This template deploys the frontend to an Azure Storage static website, which cannot host the BFF.
+`environment.authEnabled` therefore has to genuinely disable the flow in production, otherwise the
+deployed site offers a sign-in button that leads to a 404.
+
+```typescript
+// AuthStore — skip the call entirely, stay anonymous
+async checkSession(): Promise<void> {
+  if (!environment.authEnabled) {
+    this.#state.set({ ...initialState, loading: false });
+    return;
+  }
+  // … fetch /auth/me as usual
+}
+```
+
+```typescript
+// authGuard — no auth means the protected route is simply unavailable
+if (!environment.authEnabled) {
+  return router.createUrlTree(['/']);
+}
+```
+
+And hide the sign-in button: pass `environment.authEnabled` into the header alongside
+`isAuthenticated`, and render the login and logout controls only when it is true.
+
+Backend services read `environment.apiUrl`, not `bffUrl` — in development that is the BFF proxy, in
+production the backend directly. Public reads keep working either way; anything requiring a token
+only works locally.
+
 ## Environment config
 
-Use `/api` in **both** environments. Production is same-origin via Azure SWA; development is made same-origin by the dev-server proxy.
+In development everything goes through `/api`, which the dev-server proxy makes same-origin — the
+same shape a deployment on Azure Static Web Apps would have.
 
 ```typescript
 // src/environments/environment.development.ts
 export const environment = {
   production: false,
-  // Same-origin as production: ng serve proxies /api to the BFF (see proxy.conf.json)
+  apiUrl: '/api', // ng serve proxies /api to the BFF (see proxy.conf.json)
   bffUrl: '/api',
+  authEnabled: true,
 };
 ```
+
+Production keeps `apiUrl` pointing at the backend and sets `authEnabled: false`, because this
+template's deployment target cannot host the BFF. See Step 0 of the prompt.
 
 ## Route binding
 

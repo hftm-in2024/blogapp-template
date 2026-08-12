@@ -75,10 +75,34 @@ migration. Two consequences:
 - Wherever the steps below describe removing something ("the login page loses its form", "the store's
   `login()` method disappears"), there is nothing to remove — create the redirect-based version
   directly.
-- `src/environments/environment*.ts` currently exposes `api`, pointing straight at the backend. The
-  frontend must stop calling the backend directly: replace that key with `bffUrl: '/api'` in **both**
-  files and route every backend call through the proxy endpoints created in Step 3. A call that
-  bypasses `/api` carries no session and no CSRF header.
+- `src/environments/environment*.ts` currently exposes `api`, pointing straight at the backend. This
+  needs to differ per environment, because the deployed site has no BFF (see the note below):
+
+  ```typescript
+  // environment.development.ts — everything through the BFF
+  export const environment = {
+    production: false,
+    apiUrl: '/api', // reads go through the proxy, which attaches the bearer token
+    bffUrl: '/api',
+    authEnabled: true,
+  };
+
+  // environment.ts — no BFF deployed, public reads straight from the backend
+  export const environment = {
+    production: true,
+    apiUrl: 'https://d-cap-blog-backend---v2.whitepond-b96fee4b.westeurope.azurecontainerapps.io',
+    bffUrl: '/api',
+    authEnabled: false,
+  };
+  ```
+
+  Backend services use `apiUrl`; the auth store, guard and login page use `bffUrl`. Without this
+  split the deployed site would call `/api` on a storage account, get a 404 for every request and
+  show an empty page — with a green build.
+
+- `authEnabled: false` must actually switch things off, or production shows a login that cannot work:
+  `checkSession()` returns anonymous without calling the BFF, the sign-in button is hidden, and
+  `authGuard` sends the user away instead of to `/login`. Three small guards, no separate code path.
 
 **The BFF runs locally only in this template.** `.github/workflows/azure-deploy.yml` publishes the
 frontend to an Azure Storage static website (`$web` container), and a storage account cannot host
@@ -207,7 +231,7 @@ export const cookieInterceptor: HttpInterceptorFn = (req, next) => {
 };
 ```
 
-2. **Environment config** — replace the existing `api` key with `bffUrl: '/api'` in **both** environment files, and update every service that used it. `/api` is correct in both: production is same-origin via Azure SWA, development is made same-origin by the dev-server proxy (Step 6). Do not point development at `http://localhost:7071/api` — that is cross-origin and breaks the session cookie.
+2. **Environment config** — see Step 0 for the exact shape: `apiUrl` for data, `bffUrl` for auth, `authEnabled` to switch auth off where no BFF is hosted. In development both point at `/api`, which the dev-server proxy makes same-origin (Step 6). Do not point development at `http://localhost:7071/api` — that is cross-origin and breaks the session cookie.
 
 3. **The login page loses its form.** The password is typed on Keycloak's page now. What remains is branding, a button, and an error line fed from `?error=`:
 
