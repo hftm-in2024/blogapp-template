@@ -44,7 +44,7 @@ export class BlogService {
       return result.data.data;
     } catch (error) {
       console.error('Blogs konnten nicht geladen werden:', error);
-      return [];
+      throw error;
     }
   }
 

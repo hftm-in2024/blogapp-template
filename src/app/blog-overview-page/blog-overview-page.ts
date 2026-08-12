@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { BlogCardComponent } from '../blog-card/blog-card';
-import { BlogService } from '../shared/blog';
-import { Blog } from '../models/blog';
+import { BlogStateService } from '../services/blog-state';
 
 @Component({
   selector: 'app-blog-overview-page',
@@ -11,28 +10,14 @@ import { Blog } from '../models/blog';
   styleUrl: './blog-overview-page.scss',
 })
 export class BlogOverviewPageComponent implements OnInit {
-  private blogService = inject(BlogService);
+  readonly state = inject(BlogStateService);
 
-  blogs: Blog[] = [];
-
-  async ngOnInit(): Promise<void> {
-    this.blogs = await this.blogService.getAll();
+  ngOnInit(): void {
+    void this.state.loadBlogs();
   }
 
-  toggleLike(blogId: number): void {
-    this.blogs = this.blogs.map((blog) => {
-      if (blog.id !== blogId) {
-        return blog;
-      }
-
-      const wasLiked = blog.likedByMe === true;
-      const likedByMe = !wasLiked;
-
-      return {
-        ...blog,
-        likedByMe,
-        likes: likedByMe ? blog.likes + 1 : blog.likes - 1,
-      };
-    });
+  onAuthorChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.state.setAuthor(select.value);
   }
 }
