@@ -1,5 +1,11 @@
 # BFF Deployment to Azure Static Web Apps
 
+> **Not applicable to this template.** `.github/workflows/azure-deploy.yml` publishes the frontend to
+> an Azure Storage static website, and a storage account cannot host Azure Functions. Everything
+> below describes a deployment on Azure Static Web Apps and is kept as a reference for when the
+> project moves there. For this template the BFF runs locally only — see Step 0 of the prompt.
+> The Keycloak section further down **does** apply: it is needed for local sign-in too.
+
 ## GitHub Actions workflow
 
 The key setting is `api_location: "bff"`. If this is empty or missing, the BFF Azure Functions are silently not deployed and all `/api` requests return 404.

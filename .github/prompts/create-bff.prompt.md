@@ -80,6 +80,15 @@ migration. Two consequences:
   files and route every backend call through the proxy endpoints created in Step 3. A call that
   bypasses `/api` carries no session and no CSRF header.
 
+**The BFF runs locally only in this template.** `.github/workflows/azure-deploy.yml` publishes the
+frontend to an Azure Storage static website (`$web` container), and a storage account cannot host
+Azure Functions — there is no `/api` there. Build and run the BFF locally; do not wire it into that
+workflow, and do not tell the user their deployed site will have a login. Making it work in
+production would mean moving the frontend to Azure Static Web Apps (which hosts managed functions
+under `/api`, keeping the same-origin design intact) or hosting the BFF as a separate Azure Function
+App — the latter turns `/api` into a cross-origin call and would need `SameSite=None`, real CORS and
+a different redirect URI. Neither is part of this prompt.
+
 Also missing and created along the way: `proxy.conf.json` (Step 6), the `proxyConfig` entry in
 `angular.json` (Step 6), and a `start` script that runs frontend and BFF together — the current one
 is a bare `ng serve`.
@@ -310,15 +319,23 @@ curl -s -o /dev/null -D - "http://localhost:4200/api/auth/callback?error=access_
 
 Then have the user log in for real and watch the function log. **A callback that finishes in a few milliseconds did not exchange anything** — a genuine token exchange takes 100-500 ms. Confirm afterwards that the browser holds `__session.0` (and `.1`), that `/auth/me` reports the user, and that logging out and back in asks for the password again.
 
-### Step 9: Verify environment variables on Azure SWA
+### Step 9: Hand over
 
-After deployment, verify all required variables are set. Do NOT set secrets yourself — the user must run `az staticwebapp appsettings set` since it involves credentials.
+Tell the user exactly what is left for them, and do not skip the secrets — they cannot be filled in
+for them:
 
-```bash
-az staticwebapp appsettings list --name <swa-name> --query "[].name" -o tsv
-```
+1. `npm install` inside `bff/`
+2. Put the Keycloak client secret and a fresh `SESSION_SECRET` (`openssl rand -base64 32`) into
+   `bff/local.settings.json`
+3. Make sure `bff/local.settings.json` is listed in `.gitignore` — add it if it is not, before the
+   first commit
+4. `npm start` runs the dev server and the BFF together; sign in at `http://localhost:4200`
 
-Check for: `SESSION_SECRET`, `KEYCLOAK_URL`, `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`, `BACKEND_API_URL`, `ALLOWED_ORIGIN`.
+Deployment is out of scope here: see the note in Step 0 about why the BFF cannot run on the Azure
+Storage static website this template deploys to.
+
+The variables `bff/local.settings.json` must carry: `SESSION_SECRET`, `KEYCLOAK_URL`,
+`KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`, `BACKEND_API_URL`, `ALLOWED_ORIGIN`.
 
 ## Critical pitfalls to avoid
 
@@ -415,4 +432,4 @@ Because `keycloak.ts` validates its environment at import time, its spec must se
 | `BACKEND_API_URL`        | Backend API base URL                                                                                                 | `https://api.example.com`                                     |
 | `ALLOWED_ORIGIN`         | Public origin of the app. Drives CORS, the `Secure` cookie flag, **and the OAuth redirect URIs**. No trailing slash. | `https://myapp.azurestaticapps.net` / `http://localhost:4200` |
 
-For local development, set these in `bff/local.settings.json` (gitignored). For production, set them as Azure SWA Application Settings via `az staticwebapp appsettings set`.
+Set these in `bff/local.settings.json`, and make sure that file is gitignored. In a deployment on Azure Static Web Apps they would go into the Application Settings via `az staticwebapp appsettings set` — but see Step 0: this template does not deploy to SWA.
