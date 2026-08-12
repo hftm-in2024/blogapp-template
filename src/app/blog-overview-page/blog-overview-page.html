@@ -1,7 +1,31 @@
-<section class="blog-list">
-  @for (blog of blogs; track blog.id) {
-    <app-blog-card [model]="blog" (likedByMe)="toggleLike($event)" />
-  } @empty {
-    <p>Keine Blog-Posts vorhanden.</p>
+<h1>Blogs</h1>
+
+<p>Anzahl Blogs: {{ state.blogCount() }}</p>
+
+<label for="author">Autor:</label>
+
+<select id="author" [value]="state.selectedAuthor()" (change)="onAuthorChange($event)">
+  <option value="all">Alle Autoren</option>
+
+  @for (author of state.authors(); track author) {
+    <option [value]="author">
+      {{ author }}
+    </option>
   }
-</section>
+</select>
+
+@if (state.loading()) {
+  <p>Blogs werden geladen...</p>
+} @else if (state.error()) {
+  <p class="error">
+    {{ state.error() }}
+  </p>
+} @else {
+  <div class="blog-list">
+    @for (blog of state.filteredBlogs(); track blog.id) {
+      <app-blog-card [model]="blog" (likedByMe)="state.toggleLike($event)" />
+    } @empty {
+      <p>Keine Blogs vorhanden.</p>
+    }
+  </div>
+}
