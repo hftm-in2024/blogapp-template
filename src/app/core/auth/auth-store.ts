@@ -30,7 +30,7 @@ export class AuthStore {
   isAuthenticated = computed(() => this.#state().isAuthenticated);
   userData = computed(() => this.#state().user);
   loading = computed(() => this.#state().loading);
-  roles = computed(() => this.#state().user?.roles ?? null);
+  roles = computed(() => this.#state().user?.roles ?? []);
 
   constructor() {
     this.ready = this.checkSession();
