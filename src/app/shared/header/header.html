@@ -1,13 +1,33 @@
 <mat-toolbar color="primary">
   <span>{{ title() }}</span>
   <span class="spacer"></span>
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+      >Übersicht</a
+    >
+    <a routerLink="/about" routerLinkActive="active-link">Über uns</a>
+  </nav>
 
-  @if (authStore.loading()) {
-    <!-- session check still running -->
-  } @else if (authStore.isAuthenticated()) {
-    <span class="username" data-testid="username">{{ authStore.userData()?.name }}</span>
-    <button mat-button type="button" data-testid="logout-button" (click)="logout()">Logout</button>
-  } @else {
-    <a mat-button data-testid="login-link" [routerLink]="['/login']">Login</a>
+  @if (authEnabled) {
+    @if (authStore.loading()) {
+      <!-- session check still running -->
+    } @else if (authStore.isAuthenticated()) {
+      <span class="username" data-testid="username">{{ authStore.userData()?.name }}</span>
+      <button mat-button type="button" data-testid="logout-button" (click)="logout()">
+        Logout
+      </button>
+    } @else {
+      <a mat-button data-testid="login-link" routerLink="/login">Login</a>
+    }
   }
+
+  <button
+    mat-icon-button
+    class="theme-toggle"
+    (click)="themeToggle.emit()"
+    [matTooltip]="isDarkMode() ? 'Light Mode aktivieren' : 'Dark Mode aktivieren'"
+    [attr.aria-label]="isDarkMode() ? 'Light Mode aktivieren' : 'Dark Mode aktivieren'"
+  >
+    <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>
