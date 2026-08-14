@@ -44,7 +44,7 @@ describe('app.routes', () => {
 
     // Warten, bis der lazy geladene Chunk da ist und der Resolver die Anfrage abgesetzt hat.
     // Die URL beweist zugleich, dass die :id der Parent-Route im Child ankommt.
-    const url = environment.api + '/entries/7';
+    const url = environment.apiUrl + '/entries/7';
     let requests = httpMock.match(url);
     while (requests.length === 0) {
       await new Promise((resolve) => setTimeout(resolve, 0));

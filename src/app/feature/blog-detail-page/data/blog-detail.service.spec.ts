@@ -39,7 +39,7 @@ describe('BlogDetailService', () => {
 
   it('getById() lädt den passenden Post', async () => {
     const result = service.getById(1);
-    httpMock.expectOne(environment.api + '/entries/1').flush(BLOG);
+    httpMock.expectOne(environment.apiUrl + '/entries/1').flush(BLOG);
 
     await expect(result).resolves.toEqual(BLOG);
   });

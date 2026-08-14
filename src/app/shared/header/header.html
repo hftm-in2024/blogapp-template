@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <span>{{ title() }}</span>
+  <span class="spacer"></span>
+
+  @if (authStore.loading()) {
+    <!-- session check still running -->
+  } @else if (authStore.isAuthenticated()) {
+    <span class="username" data-testid="username">{{ authStore.userData()?.name }}</span>
+    <button mat-button type="button" data-testid="logout-button" (click)="logout()">Logout</button>
+  } @else {
+    <a mat-button data-testid="login-link" [routerLink]="['/login']">Login</a>
+  }
+</mat-toolbar>

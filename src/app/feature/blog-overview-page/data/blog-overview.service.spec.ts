@@ -46,14 +46,14 @@ describe('BlogOverviewService', () => {
 
   it('getAll() lädt die Blog-Posts vom Backend', async () => {
     const result = service.getAll();
-    httpMock.expectOne(environment.api + '/entries').flush(RESPONSE);
+    httpMock.expectOne(environment.apiUrl + '/entries').flush(RESPONSE);
 
     await expect(result).resolves.toEqual(RESPONSE);
   });
 
   it('like() sendet einen POST auf den like-info-Endpoint', async () => {
     const result = service.like(1);
-    const request = httpMock.expectOne(environment.api + '/entries/1/like-info');
+    const request = httpMock.expectOne(environment.apiUrl + '/entries/1/like-info');
     expect(request.request.method).toBe('POST');
     request.flush({});
 

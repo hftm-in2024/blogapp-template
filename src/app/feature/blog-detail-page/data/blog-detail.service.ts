@@ -14,6 +14,6 @@ export class BlogDetailService {
   #http = inject(HttpClient);
 
   async getById(id: number): Promise<Blog | undefined> {
-    return firstValueFrom(this.#http.get<Blog>(environment.api + '/entries/' + id));
+    return firstValueFrom(this.#http.get<Blog>(environment.apiUrl + '/entries/' + id));
   }
 }

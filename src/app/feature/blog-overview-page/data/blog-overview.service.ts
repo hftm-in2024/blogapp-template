@@ -14,10 +14,10 @@ export class BlogOverviewService {
   #http = inject(HttpClient);
 
   async getAll(): Promise<BlogResponse> {
-    return firstValueFrom(this.#http.get<BlogResponse>(environment.api + '/entries'));
+    return firstValueFrom(this.#http.get<BlogResponse>(environment.apiUrl + '/entries'));
   }
 
   async like(id: number): Promise<void> {
-    await firstValueFrom(this.#http.post(environment.api + '/entries/' + id + '/like-info', {}));
+    await firstValueFrom(this.#http.post(environment.apiUrl + '/entries/' + id + '/like-info', {}));
   }
 }

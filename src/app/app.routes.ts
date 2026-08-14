@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/auth-guard';
 
 export const routes: Routes = [
   // Kein Resolver mehr: die Daten holt der BlogStateService, damit Loading- und
@@ -16,6 +17,15 @@ export const routes: Routes = [
   {
     path: 'about',
     loadComponent: () => import('./feature/about-page/about-page').then((m) => m.AboutPage),
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./feature/login/login'),
+  },
+  {
+    path: 'add-blog',
+    canMatch: [authGuard],
+    loadComponent: () => import('./feature/add-blog/add-blog'),
   },
   {
     path: '**',
