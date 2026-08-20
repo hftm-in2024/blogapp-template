@@ -10,6 +10,18 @@
   </button>
 
   <a mat-button routerLink="/" routerLinkActive="active-link"> Home </a>
+
+  @if (authEnabled) {
+    @if (authStore.isAuthenticated()) {
+      <span style="margin-left: 16px">
+        {{ authStore.user()?.preferred_username }}
+      </span>
+
+      <button mat-button (click)="logout()">Logout</button>
+    } @else {
+      <a mat-button routerLink="/login"> Login </a>
+    }
+  }
 </mat-toolbar>
 
 <main class="content">

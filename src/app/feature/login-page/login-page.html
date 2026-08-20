@@ -1,0 +1,25 @@
+<h1>Login</h1>
+
+<p>Please authenticate to continue.</p>
+
+<mat-form-field appearance="outline" style="width: 320px">
+  <mat-label>Username</mat-label>
+  <input matInput [ngModel]="username()" (ngModelChange)="username.set($event)" />
+</mat-form-field>
+
+<br />
+
+<mat-form-field appearance="outline" style="width: 320px">
+  <mat-label>Password</mat-label>
+  <input matInput type="password" [ngModel]="password()" (ngModelChange)="password.set($event)" />
+</mat-form-field>
+
+@if (errorMessage()) {
+  <p style="color: red">
+    {{ errorMessage() }}
+  </p>
+}
+
+<br />
+
+<button mat-raised-button color="primary" (click)="login()">Login</button>

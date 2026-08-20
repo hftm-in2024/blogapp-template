@@ -2,12 +2,19 @@ import { Routes } from '@angular/router';
 
 import { BlogOverviewPage } from './feature/blog-overview-page/blog-overview-page';
 import { NotFoundPage } from './feature/not-found-page/not-found-page';
+import { LoginPage } from './feature/login-page/login-page';
+
 import { blogResolver } from './core/blog.resolver';
+import { authGuard } from './core/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: BlogOverviewPage,
+  },
+  {
+    path: 'login',
+    component: LoginPage,
   },
   {
     path: 'blog/:id',
@@ -16,6 +23,12 @@ export const routes: Routes = [
     resolve: {
       blog: blogResolver,
     },
+  },
+  {
+    path: 'admin',
+    canMatch: [authGuard],
+    loadComponent: () =>
+      import('./feature/not-found-page/not-found-page').then((m) => m.NotFoundPage),
   },
   {
     path: '**',

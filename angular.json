@@ -79,7 +79,8 @@
               "buildTarget": "blogapp-template:build:production"
             },
             "development": {
-              "buildTarget": "blogapp-template:build:development"
+              "buildTarget": "blogapp-template:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
