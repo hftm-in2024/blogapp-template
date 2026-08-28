@@ -1,0 +1,35 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+.blog-grid {
+  @include responsive-grid;
+
+  gap: $spacing-lg;
+  margin-top: $spacing-xl;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+code {
+  background: rgba(0, 0, 0, 0.06);
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+}
+
+pre {
+  background: rgba(0, 0, 0, 0.06);
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  overflow-x: auto;
+}
+
+ol,
+ul {
+  line-height: 1.8;
+}
+
+a {
+  color: var(--mat-sys-primary);
+}

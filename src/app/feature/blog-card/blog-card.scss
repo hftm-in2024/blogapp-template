@@ -1,0 +1,33 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+mat-card {
+  width: $card-width;
+  cursor: pointer;
+
+  border-radius: 16px;
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.3s;
+
+  background: var(--mat-sys-surface-container);
+
+  @include card-shadow;
+}
+
+img {
+  width: 100%;
+  height: $card-image-height;
+  object-fit: cover;
+}
+
+.liked {
+  color: red;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
