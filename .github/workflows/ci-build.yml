@@ -96,6 +96,6 @@ jobs:
         # Fork PRs only get a read-only token (no security-events: write), so the
         # upload would fail. Skip it for forks; still runs on push and same-repo PRs.
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@v4.37.3
         with:
           sarif_file: fallow-results.sarif
