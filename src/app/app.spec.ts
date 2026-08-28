@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
 import { App } from './app';
+import { routes } from './app.routes';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
@@ -17,7 +21,9 @@ describe('App', () => {
   it('should render title in toolbar', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
+
     const compiled = fixture.nativeElement as HTMLElement;
+
     expect(compiled.querySelector('mat-toolbar')?.textContent).toContain(
       'HFTM Web Applications (IN353)',
     );
