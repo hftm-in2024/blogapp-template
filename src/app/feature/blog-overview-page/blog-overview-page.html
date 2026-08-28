@@ -1,0 +1,11 @@
+<h1>Blog Übersicht</h1>
+
+@if (loading()) {
+  <p>Laden...</p>
+} @else {
+  <div class="blog-grid">
+    @for (blog of blogs(); track blog.id) {
+      <app-blog-card [model]="blog" (likeClicked)="toggleLike($event)"></app-blog-card>
+    }
+  </div>
+}
