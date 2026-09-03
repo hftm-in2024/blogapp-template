@@ -1,0 +1,59 @@
+@use '../../../styles/variables' as vars;
+
+.add-blog {
+  display: flex;
+  justify-content: center;
+  padding: vars.$spacing-xl vars.$spacing-md;
+
+  &__card {
+    width: 100%;
+    max-width: 560px;
+    padding: vars.$spacing-md;
+  }
+
+  &__header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: vars.$spacing-xs;
+  }
+
+  &__badge {
+    --mat-icon-color: var(--mat-sys-primary);
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: vars.$spacing-sm;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: vars.$spacing-sm;
+    margin: 0 0 vars.$spacing-md;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    border-radius: 8px;
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &__hint {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.875rem;
+    line-height: 1.5;
+
+    code {
+      padding: 0 vars.$spacing-xs;
+      border-radius: 4px;
+      background: var(--mat-sys-surface-container-high);
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8125rem;
+    }
+  }
+
+  &__actions {
+    justify-content: center;
+    padding-top: vars.$spacing-md;
+  }
+}

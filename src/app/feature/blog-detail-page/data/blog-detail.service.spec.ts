@@ -4,15 +4,15 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 import { BlogDetailService } from './blog-detail.service';
 import { environment } from '../../../../environments/environment';
-import { Blog } from '../../../shared/blog-card/blog.model';
+import { BlogDetail } from '../../../shared/blog-card/blog.model';
 
-const BLOG: Blog = {
+const BLOG: BlogDetail = {
   id: 1,
   title: 'Test-Titel',
-  contentPreview: 'Ein Inhalt.',
+  content: 'Ein ausführlicher Inhalt.',
   author: 'Test Autor',
   likes: 0,
-  comments: 0,
+  comments: [],
   likedByMe: false,
   createdByMe: false,
   createdAt: '2026-01-01T00:00:00',

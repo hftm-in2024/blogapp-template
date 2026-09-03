@@ -1,0 +1,29 @@
+<section class="add-blog">
+  <mat-card appearance="outlined" class="add-blog__card">
+    <mat-card-header class="add-blog__header">
+      <mat-icon class="add-blog__badge">edit_note</mat-icon>
+      <mat-card-title>Neuer Beitrag</mat-card-title>
+      <mat-card-subtitle>Geschützte Route: nur für die Rolle „user"</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p class="add-blog__user">
+        <mat-icon>verified_user</mat-icon>
+        <span>
+          Angemeldet als
+          <strong data-testid="add-blog-username">{{ authStore.userData()?.name }}</strong>
+        </span>
+      </p>
+
+      <p class="add-blog__hint">
+        Der <code>canMatch</code>-Guard hat die Route freigegeben, weil die Session gültig ist und
+        die Rolle <code>user</code> enthält. Das Formular zum Erfassen eines Beitrags folgt im
+        nächsten Kurstag mit Signal Forms.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions class="add-blog__actions">
+      <a matButton routerLink="/">Zurück zur Übersicht</a>
+    </mat-card-actions>
+  </mat-card>
+</section>

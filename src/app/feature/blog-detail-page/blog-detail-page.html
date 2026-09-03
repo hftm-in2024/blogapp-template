@@ -1,18 +1,45 @@
 @if (blog(); as post) {
-  <mat-card class="blog-detail" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{ post.title }}</mat-card-title>
-      <mat-card-subtitle>von {{ post.author }}</mat-card-subtitle>
-    </mat-card-header>
+  <article class="blog-detail">
+    <a class="blog-detail__back" matButton routerLink="/">
+      <mat-icon>arrow_back</mat-icon>
+      Zurück zur Übersicht
+    </a>
 
-    @if (post.headerImageUrl) {
-      <img mat-card-image [src]="post.headerImageUrl" [alt]="post.title" />
-    }
+    <mat-card class="blog-detail__card" appearance="outlined">
+      <img
+        mat-card-image
+        [src]="post.headerImageUrl || 'https://picsum.photos/seed/' + post.id + '/1200/600'"
+        [alt]="post.title"
+      />
 
-    <mat-card-content>
-      <p>{{ post.contentPreview }}</p>
-    </mat-card-content>
-  </mat-card>
+      <mat-card-header class="blog-detail__header">
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle class="blog-detail__meta">
+          <span class="blog-detail__author">
+            <span class="blog-detail__avatar" aria-hidden="true">{{ post.author[0] }}</span>
+            {{ post.author }}
+          </span>
+          <span>{{ post.createdAt | date: 'dd. MMMM yyyy' }}</span>
+          <span class="blog-detail__stat">
+            <mat-icon>favorite_border</mat-icon>
+            {{ post.likes }}
+          </span>
+          <span class="blog-detail__stat">
+            <mat-icon>chat_bubble_outline</mat-icon>
+            {{ post.comments.length }}
+          </span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p class="blog-detail__body">{{ post.content }}</p>
+      </mat-card-content>
+    </mat-card>
+  </article>
 } @else {
-  <p class="not-found">Kein Blog-Post mit der ID {{ id() }} gefunden.</p>
+  <div class="not-found">
+    <mat-icon class="not-found__icon">search_off</mat-icon>
+    <p>Kein Blog-Post mit der ID {{ id() }} gefunden.</p>
+    <a matButton="filled" routerLink="/">Zur Übersicht</a>
+  </div>
 }

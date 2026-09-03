@@ -23,14 +23,19 @@ $dark-theme: mat.define-theme(
   )
 );
 
-// Light theme default
+// Light theme default.
+// `all-component-themes` schreibt nur die Komponenten-Tokens. Die System-Variablen
+// (--mat-sys-primary, --mat-sys-surface-container, ...), die eigene Styles nutzen,
+// kommen zusätzlich aus `system-level-colors`.
 html {
   @include mat.all-component-themes($light-theme);
+  @include mat.system-level-colors($light-theme);
 }
 
 // Aufgabe 2: Dark theme via CSS class (gesetzt durch Toggle-Button)
 .dark-theme {
   @include mat.all-component-colors($dark-theme);
+  @include mat.system-level-colors($dark-theme);
   color-scheme: dark;
 }
 
@@ -39,6 +44,7 @@ html {
 @media (prefers-color-scheme: dark) {
   html:not(.light-theme) {
     @include mat.all-component-colors($dark-theme);
+    @include mat.system-level-colors($dark-theme);
     color-scheme: dark;
   }
 }

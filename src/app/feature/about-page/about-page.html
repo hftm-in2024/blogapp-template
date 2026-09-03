@@ -1,7 +1,35 @@
 <section class="about">
-  <h1>Über dieses Projekt</h1>
-  <p>
-    Diese Blog-App entsteht im Modul <strong>IN353 Web Applications</strong> an der HFTM. Sie dient
-    als Lernprojekt für Angular-Grundlagen wie Komponenten, Services, Routing und Lazy Loading.
-  </p>
+  <header class="about__header">
+    <mat-icon class="about__badge">school</mat-icon>
+    <h1>Über dieses Projekt</h1>
+    <p class="about__lead">
+      Diese Blog-App entsteht im Modul <strong>IN353 Web Applications</strong> an der HFTM. Sie ist
+      das durchgehende Lernprojekt: Jeder Kurstag baut ein weiteres Stück Angular ein.
+    </p>
+  </header>
+
+  <div class="about__grid">
+    @for (topic of topics; track topic.title) {
+      <mat-card class="about__card" appearance="outlined">
+        <mat-card-content class="about__card-content">
+          <mat-icon class="about__card-icon">{{ topic.icon }}</mat-icon>
+          <h2>{{ topic.title }}</h2>
+          <p>{{ topic.text }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <mat-card class="about__stack" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Technischer Stack</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ul class="about__stack-list">
+        @for (item of stack; track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </mat-card-content>
+  </mat-card>
 </section>

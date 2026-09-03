@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { environment } from '../../../environments/environment';
 
 const ERROR_MESSAGES: Record<string, string> = {
-  access_denied: 'Sign-in was cancelled.',
-  expired: 'The sign-in attempt expired. Please try again.',
-  failed: 'Sign-in failed. Please try again.',
+  access_denied: 'Die Anmeldung wurde abgebrochen.',
+  expired: 'Der Anmeldeversuch ist abgelaufen. Bitte versuche es erneut.',
+  failed: 'Die Anmeldung ist fehlgeschlagen. Bitte versuche es erneut.',
 };
 
 @Component({
   selector: 'app-login',
-  template: `
-    @if (errorMessage(); as message) {
-      <div class="error-message" data-testid="login-error">{{ message }}</div>
-    }
-    <button type="button" data-testid="login-submit" (click)="signIn()">Sign in</button>
-  `,
+  imports: [MatButtonModule, MatCardModule, MatIconModule],
+  templateUrl: './login.html',
+  styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginPage {
@@ -32,7 +32,7 @@ export default class LoginPage {
    * Full navigation, not a fetch — the browser has to follow the BFF's redirect
    * to Keycloak and carry the `__pkce` cookie back to the callback.
    */
-  signIn(): void {
+  protected signIn(): void {
     const returnUrl = encodeURIComponent(this.returnUrl());
     window.location.href = `${environment.bffUrl}/auth/login?returnUrl=${returnUrl}`;
   }

@@ -1,15 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { BlogDetailPage } from './blog-detail-page';
-import { Blog } from '../../shared/blog-card/blog.model';
+import { BlogDetail } from '../../shared/blog-card/blog.model';
 
-const SAMPLE_BLOG: Blog = {
+const SAMPLE_BLOG: BlogDetail = {
   id: 1,
   title: 'Test-Titel',
-  contentPreview: 'Ein Inhalt.',
+  content: 'Ein ausführlicher Inhalt.',
   author: 'Test Autor',
   likes: 0,
-  comments: 0,
+  comments: [],
   likedByMe: false,
   createdByMe: false,
   createdAt: '2026-01-01T00:00:00',
@@ -23,6 +24,7 @@ describe('BlogDetailPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BlogDetailPage],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BlogDetailPage);
@@ -42,6 +44,7 @@ describe('BlogDetailPage', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.textContent).toContain(SAMPLE_BLOG.title);
+    expect(compiled.textContent).toContain(SAMPLE_BLOG.content);
   });
 
   it('zeigt einen Hinweis, wenn kein Blog-Post gefunden wurde', () => {

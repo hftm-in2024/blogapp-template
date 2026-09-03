@@ -1,5 +1,98 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
 .about {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: vars.$spacing-md 0;
+
+  &__header {
+    margin-bottom: vars.$spacing-xl;
+    text-align: center;
+
+    h1 {
+      margin: 0 0 vars.$spacing-sm;
+      font-size: 1.875rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__badge {
+    --mat-icon-color: var(--mat-sys-primary);
+    font-size: 44px;
+    width: 44px;
+    height: 44px;
+    margin-bottom: vars.$spacing-sm;
+  }
+
+  &__lead {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  &__grid {
+    @include mix.responsive-grid(260px);
+    margin-bottom: vars.$spacing-xl;
+  }
+
+  &__card {
+    border-radius: 16px;
+    background: var(--mat-sys-surface-container);
+  }
+
+  &__card-content {
+    padding: vars.$spacing-lg;
+
+    h2 {
+      margin: vars.$spacing-sm 0;
+      font-size: 1.0625rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      color: var(--mat-sys-on-surface-variant);
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+  }
+
+  &__card-icon {
+    --mat-icon-color: var(--mat-sys-primary);
+  }
+
+  &__stack {
+    border-radius: 16px;
+    background: var(--mat-sys-surface-container);
+  }
+
+  &__stack-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: vars.$spacing-sm;
+
+    li {
+      position: relative;
+      padding-left: vars.$spacing-lg;
+      color: var(--mat-sys-on-surface-variant);
+      font-size: 0.9375rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.5em;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--mat-sys-primary);
+      }
+    }
+  }
 }

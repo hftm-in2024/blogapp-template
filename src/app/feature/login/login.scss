@@ -1,0 +1,55 @@
+@use '../../../styles/variables' as vars;
+
+.login {
+  display: flex;
+  justify-content: center;
+  padding: vars.$spacing-xl vars.$spacing-md;
+
+  &__card {
+    width: 100%;
+    max-width: 420px;
+    padding: vars.$spacing-md;
+  }
+
+  &__header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: vars.$spacing-xs;
+  }
+
+  &__badge {
+    --mat-icon-color: var(--mat-sys-primary);
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: vars.$spacing-sm;
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: vars.$spacing-sm;
+    margin: 0 0 vars.$spacing-md;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    border-radius: 8px;
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
+  }
+
+  &__hint {
+    margin: 0;
+    color: var(--mat-sys-on-surface-variant);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    justify-content: center;
+    padding-top: vars.$spacing-md;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

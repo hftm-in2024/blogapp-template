@@ -57,9 +57,6 @@ export class BlogStateService {
   readonly error = computed(() => this.#state().error);
   readonly selectedAuthor = computed(() => this.#state().selectedAuthor);
 
-  /** Anzahl aller geladenen Blog-Posts (ungefiltert). */
-  readonly blogCount = computed(() => this.blogs().length);
-
   /** Auswahlliste für den Filter: alle Autoren, die aktuell Posts haben. */
   readonly authors = computed(() => [...new Set(this.blogs().map((blog) => blog.author))].sort());
 
@@ -74,6 +71,9 @@ export class BlogStateService {
       ? this.blogs()
       : this.blogs().filter((blog) => blog.author === author);
   });
+
+  /** Anzahl der aktuell sichtbaren Blog-Posts, also inklusive Autoren-Filter. */
+  readonly blogCount = computed(() => this.filteredBlogs().length);
 
   constructor() {
     // Side-Effect: gewählten Autor persistieren, sobald er sich ändert.

@@ -94,6 +94,7 @@ describe('BlogStateService', () => {
     store.setAuthor('Maria Keller');
 
     expect(store.filteredBlogs().map((entry) => entry.id)).toEqual([1, 3]);
+    expect(store.blogCount()).toBe(2);
 
     store.setAuthor(ALL_AUTHORS);
 

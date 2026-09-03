@@ -1,23 +1,51 @@
-<mat-toolbar color="primary">
-  <span>{{ title() }}</span>
+<mat-toolbar class="app-header">
+  <a class="app-header__brand" routerLink="/">
+    <mat-icon class="app-header__logo">auto_stories</mat-icon>
+    <span class="app-header__title">{{ title() }}</span>
+  </a>
+
   <span class="spacer"></span>
+
   <nav class="nav-links">
     <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
       >Übersicht</a
     >
     <a routerLink="/about" routerLinkActive="active-link">Über uns</a>
+    @if (authEnabled && authStore.isAuthenticated()) {
+      <a routerLink="/add-blog" routerLinkActive="active-link" data-testid="add-blog-link"
+        >Neuer Beitrag</a
+      >
+    }
   </nav>
+
+  <span class="app-header__divider" aria-hidden="true"></span>
 
   @if (authEnabled) {
     @if (authStore.loading()) {
       <!-- session check still running -->
     } @else if (authStore.isAuthenticated()) {
-      <span class="username" data-testid="username">{{ authStore.userData()?.name }}</span>
-      <button mat-button type="button" data-testid="logout-button" (click)="logout()">
+      <span
+        class="app-header__avatar"
+        data-testid="username"
+        [matTooltip]="loggedInHint()"
+        [attr.aria-label]="loggedInHint()"
+        >{{ initials() }}</span
+      >
+      <button
+        matButton
+        type="button"
+        data-testid="logout-button"
+        matTooltip="Abmelden"
+        (click)="logout()"
+      >
+        <mat-icon>logout</mat-icon>
         Logout
       </button>
     } @else {
-      <a mat-button data-testid="login-link" routerLink="/login">Login</a>
+      <a matButton="filled" data-testid="login-link" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Login
+      </a>
     }
   }
 

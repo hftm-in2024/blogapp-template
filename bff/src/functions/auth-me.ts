@@ -12,14 +12,21 @@ import { refreshTokens } from '../lib/keycloak.js';
 import { corsHeaders, handlePreflight } from '../lib/cors.js';
 import { decodeJwt } from 'jose';
 
-function userFromToken(accessToken: string) {
-  const claims = decodeJwt(accessToken) as Record<string, unknown>;
-  const realmAccess = claims.realm_access as { roles: string[] } | undefined;
+/**
+ * Identity claims come from the ID token: Keycloak puts `name` and `email` there
+ * by default, while the access token only carries them with extra mappers.
+ * Roles stay in the access token, that is where `realm_access` lives.
+ */
+function userFromTokens(accessToken: string, idToken: string) {
+  const identity = decodeJwt(idToken) as Record<string, unknown>;
+  const access = decodeJwt(accessToken) as Record<string, unknown>;
+  const realmAccess = access.realm_access as { roles: string[] } | undefined;
+  const username = identity.preferred_username ?? access.preferred_username;
 
   return {
-    preferred_username: claims.preferred_username,
-    email: claims.email,
-    name: claims.name,
+    preferred_username: username,
+    email: identity.email ?? access.email,
+    name: identity.name ?? access.name ?? username,
     roles: realmAccess?.roles ?? [],
   };
 }
@@ -69,7 +76,7 @@ async function authMe(request: HttpRequest): Promise<HttpResponseInit> {
 
   return {
     status: 200,
-    jsonBody: { isAuthenticated: true, user: userFromToken(session.accessToken) },
+    jsonBody: { isAuthenticated: true, user: userFromTokens(session.accessToken, session.idToken) },
     headers: corsHeaders,
     cookies: extraCookies.length > 0 ? extraCookies : undefined,
   };

@@ -4,15 +4,15 @@ import { vi } from 'vitest';
 
 import { blogResolver } from './blog.resolver';
 import { BlogDetailService } from './data/blog-detail.service';
-import { Blog } from '../../shared/blog-card/blog.model';
+import { BlogDetail } from '../../shared/blog-card/blog.model';
 
-const SAMPLE_BLOG: Blog = {
+const SAMPLE_BLOG: BlogDetail = {
   id: 1,
   title: 'Test-Titel',
-  contentPreview: 'Ein Inhalt.',
+  content: 'Ein ausführlicher Inhalt.',
   author: 'Test Autor',
   likes: 0,
-  comments: 0,
+  comments: [],
   likedByMe: false,
   createdByMe: false,
   createdAt: '2026-01-01T00:00:00',

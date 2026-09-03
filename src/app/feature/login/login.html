@@ -1,0 +1,36 @@
+<section class="login">
+  <mat-card appearance="outlined" class="login__card">
+    <mat-card-header class="login__header">
+      <mat-icon class="login__badge">lock_person</mat-icon>
+      <mat-card-title>Anmelden</mat-card-title>
+      <mat-card-subtitle>Zugang über den Identity Provider Keycloak</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (errorMessage(); as message) {
+        <p class="login__error" role="alert" data-testid="login-error">
+          <mat-icon>error_outline</mat-icon>
+          <span>{{ message }}</span>
+        </p>
+      }
+
+      <p class="login__hint">
+        Diese App speichert kein Passwort und kein Token. Du meldest dich direkt bei Keycloak an,
+        die Session bleibt danach in einem HTTP-Only-Cookie beim Server.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions class="login__actions">
+      <button
+        matButton="filled"
+        type="button"
+        class="login__button"
+        data-testid="login-submit"
+        (click)="signIn()"
+      >
+        <mat-icon>login</mat-icon>
+        Mit Keycloak anmelden
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>
