@@ -17,13 +17,77 @@
 
       <p class="add-blog__hint">
         Der <code>canMatch</code>-Guard hat die Route freigegeben, weil die Session gültig ist und
-        die Rolle <code>user</code> enthält. Das Formular zum Erfassen eines Beitrags folgt im
-        nächsten Kurstag mit Signal Forms.
+        die Rolle <code>user</code> enthält.
       </p>
-    </mat-card-content>
 
-    <mat-card-actions class="add-blog__actions">
-      <a matButton routerLink="/">Zurück zur Übersicht</a>
-    </mat-card-actions>
+      @if (submitted()) {
+        <p class="add-blog__success" data-testid="add-blog-success">
+          <mat-icon>check_circle</mat-icon>
+          <span
+            >Beitrag wurde erfasst (siehe Konsole). Bewertet wird ausschliesslich vor dem
+            Absenden.</span
+          >
+        </p>
+      }
+
+      <form class="add-blog__form" (submit)="onSubmit($event)">
+        <mat-form-field appearance="outline" class="add-blog__field">
+          <mat-label>Titel</mat-label>
+          <input matInput [formField]="blogForm.title" data-testid="add-blog-title" />
+          @if (blogForm.title().touched() && blogForm.title().invalid()) {
+            <mat-error>
+              @for (error of blogForm.title().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="add-blog__field">
+          <mat-label>Inhalt</mat-label>
+          <textarea
+            matInput
+            rows="6"
+            [formField]="blogForm.content"
+            data-testid="add-blog-content"
+          ></textarea>
+          @if (blogForm.content().touched() && blogForm.content().invalid()) {
+            <mat-error>
+              @for (error of blogForm.content().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="add-blog__field">
+          <mat-label>Kategorie</mat-label>
+          <mat-select [formField]="blogForm.category" data-testid="add-blog-category">
+            <mat-option value="general">Allgemein</mat-option>
+            <mat-option value="tech">Technik</mat-option>
+            <mat-option value="lifestyle">Lifestyle</mat-option>
+          </mat-select>
+          @if (blogForm.category().touched() && blogForm.category().invalid()) {
+            <mat-error>
+              @for (error of blogForm.category().errors(); track error.kind) {
+                <div>{{ error.message }}</div>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-card-actions class="add-blog__actions">
+          <a matButton routerLink="/">Zurück zur Übersicht</a>
+          <button
+            matButton="filled"
+            type="submit"
+            [disabled]="blogForm().invalid()"
+            data-testid="add-blog-submit"
+          >
+            Beitrag erstellen
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
   </mat-card>
 </section>

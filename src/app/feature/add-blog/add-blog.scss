@@ -56,4 +56,25 @@
     justify-content: center;
     padding-top: vars.$spacing-md;
   }
+
+  &__success {
+    display: flex;
+    align-items: center;
+    gap: vars.$spacing-sm;
+    margin: 0 0 vars.$spacing-md;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    border-radius: 8px;
+    background: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$spacing-sm;
+  }
+
+  &__field {
+    width: 100%;
+  }
 }
