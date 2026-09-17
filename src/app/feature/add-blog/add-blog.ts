@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   form,
   FormField,
@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthStore } from '../../core/auth/auth-store';
+import { AddBlogService } from './data/add-blog.service';
 
 /** Erlaubt Buchstaben (inkl. Umlaute), Ziffern und Leerzeichen. */
 const TITLE_PATTERN = /^[\p{L}0-9 ]+$/u;
@@ -44,6 +45,8 @@ interface BlogFormValue {
 })
 export default class AddBlogPage {
   protected readonly authStore = inject(AuthStore);
+  readonly #addBlogService = inject(AddBlogService);
+  readonly #router = inject(Router);
 
   protected readonly blogModel = signal<BlogFormValue>({
     title: '',
@@ -79,14 +82,26 @@ export default class AddBlogPage {
     required(path.category, { message: 'Kategorie ist erforderlich' });
   });
 
-  protected readonly submitted = signal(false);
+  protected readonly saving = signal(false);
+  protected readonly error = signal<string | null>(null);
 
   protected async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
 
     await submit(this.blogForm, async () => {
-      console.log(this.blogModel());
-      this.submitted.set(true);
+      const { title, content } = this.blogModel();
+      this.saving.set(true);
+      this.error.set(null);
+
+      try {
+        await this.#addBlogService.create({ title, content });
+        await this.#router.navigateByUrl('/');
+      } catch {
+        this.error.set('Der Beitrag konnte nicht gespeichert werden.');
+      } finally {
+        this.saving.set(false);
+      }
+
       return undefined;
     });
   }

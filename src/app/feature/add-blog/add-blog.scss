@@ -57,15 +57,15 @@
     padding-top: vars.$spacing-md;
   }
 
-  &__success {
+  &__error {
     display: flex;
     align-items: center;
     gap: vars.$spacing-sm;
     margin: 0 0 vars.$spacing-md;
     padding: vars.$spacing-sm vars.$spacing-md;
     border-radius: 8px;
-    background: var(--mat-sys-tertiary-container);
-    color: var(--mat-sys-on-tertiary-container);
+    background: var(--mat-sys-error-container);
+    color: var(--mat-sys-on-error-container);
   }
 
   &__form {
