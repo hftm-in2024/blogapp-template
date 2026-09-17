@@ -1,0 +1,14 @@
+<div class="page-header">
+  <div>
+    <h1>Blog Übersicht</h1>
+    <p class="subtitle"></p>
+  </div>
+
+  <a routerLink="/create" class="create-button"> + Neuer Blog </a>
+</div>
+
+<div class="blog-grid">
+  @for (blog of blogs; track blog.id) {
+    <app-blog-card [model]="blog" (likeClicked)="toggleLike($event)"> </app-blog-card>
+  }
+</div>

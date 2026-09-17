@@ -1,0 +1,148 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+  padding: 2rem;
+}
+
+.create-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-card {
+  width: 100%;
+  max-width: 750px;
+
+  background: var(--mat-sys-surface);
+
+  color: var(--mat-sys-on-surface);
+
+  padding: 2rem;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.back-link {
+  display: inline-block;
+
+  margin-bottom: 1rem;
+
+  text-decoration: none;
+
+  color: var(--mat-sys-primary);
+
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+
+  margin-bottom: 2rem;
+
+  color: var(--mat-sys-on-surface-variant);
+}
+
+form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+
+  margin-bottom: 0.5rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  padding: 0.75rem;
+
+  border-radius: 8px;
+
+  border: 1px solid #bdbdbd;
+
+  background: var(--mat-sys-surface);
+
+  color: var(--mat-sys-on-surface);
+
+  font-size: 1rem;
+
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+
+  border-color: var(--mat-sys-primary);
+
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+
+.error {
+  margin-top: 0.35rem;
+
+  color: #d32f2f;
+
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+button {
+  padding: 0.75rem 1.5rem;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: var(--mat-sys-primary);
+
+  color: var(--mat-sys-on-primary);
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}

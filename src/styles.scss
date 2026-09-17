@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
 
-// ── Light theme (azure primary) ──
+// ── Light theme (violet primary) ──
 $light-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: mat.$violet-palette,
+      tertiary: mat.$cyan-palette,
     ),
   )
 );
@@ -16,12 +16,42 @@ html {
   @include mat.all-component-themes($light-theme);
 }
 
-html,
-body {
-  height: 100%;
+$dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$blue-palette,
+    ),
+  )
+);
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
 }
 
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+  background: #fafafa;
+  color: #111;
+
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.dark-theme {
+  background: #121212;
+  color: white;
+}
+
+.content {
+  min-height: calc(100vh - 64px);
+  padding: 2rem;
+}
+
+.dark-theme .content {
+  background: #121212;
 }
