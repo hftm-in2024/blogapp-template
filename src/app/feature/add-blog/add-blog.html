@@ -57,22 +57,6 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="add-blog__field">
-          <mat-label>Kategorie</mat-label>
-          <mat-select [formField]="blogForm.category" data-testid="add-blog-category">
-            <mat-option value="general">Allgemein</mat-option>
-            <mat-option value="tech">Technik</mat-option>
-            <mat-option value="lifestyle">Lifestyle</mat-option>
-          </mat-select>
-          @if (blogForm.category().touched() && blogForm.category().invalid()) {
-            <mat-error>
-              @for (err of blogForm.category().errors(); track err.kind) {
-                <div>{{ err.message }}</div>
-              }
-            </mat-error>
-          }
-        </mat-form-field>
-
         <mat-card-actions class="add-blog__actions">
           <a matButton routerLink="/">Zurück zur Übersicht</a>
           <button

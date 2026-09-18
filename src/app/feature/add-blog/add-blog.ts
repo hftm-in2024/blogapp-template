@@ -14,7 +14,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { AuthStore } from '../../core/auth/auth-store';
 import { AddBlogService } from './data/add-blog.service';
 
@@ -24,7 +23,6 @@ const TITLE_PATTERN = /^[\p{L}0-9 ]+$/u;
 interface BlogFormValue {
   title: string;
   content: string;
-  category: string;
 }
 
 @Component({
@@ -37,7 +35,6 @@ interface BlogFormValue {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
   ],
   templateUrl: './add-blog.html',
   styleUrl: './add-blog.scss',
@@ -51,7 +48,6 @@ export default class AddBlogPage {
   protected readonly blogModel = signal<BlogFormValue>({
     title: '',
     content: '',
-    category: 'general',
   });
 
   protected readonly blogForm = form(this.blogModel, (path) => {
@@ -78,8 +74,6 @@ export default class AddBlogPage {
         message: 'Inhalt muss mindestens doppelt so lang wie der Titel sein',
       };
     });
-
-    required(path.category, { message: 'Kategorie ist erforderlich' });
   });
 
   protected readonly saving = signal(false);
