@@ -1,0 +1,41 @@
+@let dark = theme.isDark();
+
+<mat-toolbar class="app-header">
+  <a routerLink="/" class="app-header__brand">
+    <mat-icon aria-hidden="true">article</mat-icon>
+    <span>{{ title }}</span>
+  </a>
+
+  <nav class="app-header__nav" aria-label="Hauptnavigation">
+    <a routerLink="/blogs" routerLinkActive="is-active" class="app-header__link">Beiträge</a>
+    <a routerLink="/about" routerLinkActive="is-active" class="app-header__link">Über</a>
+  </nav>
+
+  <span class="app-header__spacer"></span>
+
+  <!-- Waiting for the session check keeps a signed-in user from seeing "Login"
+       flash before their name resolves. -->
+  @if (authEnabled && !auth.loading()) {
+    @if (auth.isAuthenticated()) {
+      <span class="app-header__user" data-testid="current-user">
+        <mat-icon aria-hidden="true">account_circle</mat-icon>
+        <span>{{ displayName() }}</span>
+      </span>
+      <button mat-button type="button" data-testid="logout" (click)="onLogout()">Logout</button>
+    } @else {
+      <a mat-button routerLink="/login" data-testid="login">Login</a>
+    }
+  }
+
+  <button
+    mat-icon-button
+    type="button"
+    class="app-header__theme-toggle"
+    [attr.aria-label]="dark ? 'Light Mode aktivieren' : 'Dark Mode aktivieren'"
+    [attr.aria-pressed]="dark"
+    [matTooltip]="dark ? 'Light Mode' : 'Dark Mode'"
+    (click)="toggleTheme()"
+  >
+    <mat-icon>{{ dark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+</mat-toolbar>

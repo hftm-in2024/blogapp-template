@@ -1,0 +1,70 @@
+<section class="blog-list">
+  <header class="blog-list__intro">
+    <div>
+      <h1>Aktuelle Beiträge</h1>
+      <p>Geschichten, Tutorials und Erfahrungen aus der Web-Development-Welt.</p>
+    </div>
+
+    @if (auth.canWrite()) {
+      <a mat-flat-button routerLink="/blogs/new" class="blog-list__new">
+        <mat-icon>add</mat-icon>
+        <span>Neuer Beitrag</span>
+      </a>
+    }
+  </header>
+
+  <div class="blog-list__toolbar">
+    <mat-form-field appearance="outline" class="blog-list__filter" subscriptSizing="dynamic">
+      <mat-label>Autor</mat-label>
+      <mat-select [value]="selectedAuthor()" (valueChange)="onAuthorChange($event)">
+        <mat-option [value]="allAuthors">Alle Autoren</mat-option>
+        @for (author of authors(); track author) {
+          <mat-option [value]="author">{{ author }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <p class="blog-list__count">{{ blogs().length }} von {{ blogCount() }} Beiträgen</p>
+
+    <a mat-stroked-button routerLink="/blogs/create" class="blog-list__compose">
+      <mat-icon>edit_note</mat-icon>
+      <span>Schreiben</span>
+    </a>
+  </div>
+
+  @if (offline()) {
+    <p class="blog-list__notice" role="status">
+      <mat-icon aria-hidden="true">cloud_off</mat-icon>
+      <span>Backend nicht erreichbar — es werden lokale Beispieldaten angezeigt.</span>
+    </p>
+  }
+
+  @if (error(); as message) {
+    <p class="blog-list__error" role="alert">
+      <mat-icon aria-hidden="true">error_outline</mat-icon>
+      <span>{{ message }}</span>
+      <button mat-stroked-button type="button" (click)="reload()">Erneut versuchen</button>
+    </p>
+  }
+
+  @if (loading()) {
+    <div class="blog-list__loading" role="status" aria-live="polite">
+      <mat-spinner diameter="48" />
+      <p>Beiträge werden geladen …</p>
+    </div>
+  } @else {
+    <div class="blog-list__grid">
+      @for (b of blogs(); track b.id) {
+        <app-blog-card [blog]="b" (like)="onLike($event)" />
+      } @empty {
+        <p class="blog-list__empty">
+          @if (blogCount() === 0) {
+            Noch keine Beiträge vorhanden.
+          } @else {
+            Keine Beiträge von diesem Autor.
+          }
+        </p>
+      }
+    </div>
+  }
+</section>

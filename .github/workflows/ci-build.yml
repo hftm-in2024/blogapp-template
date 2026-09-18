@@ -8,9 +8,15 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  # Allows starting a run by hand from the Actions tab on any branch — useful to
+  # prove a green pipeline without pushing an empty commit.
+  workflow_dispatch: {}
 
 env:
-  NODE_VERSION: 22
+  # Angular 22 requires Node.js ^22.22.3 || ^24.15.0 || >=26.0.0.
+  # 26 matches azure-deploy.yml and avoids setup-node resolving `22` to
+  # a patch that predates 22.22.3 in some manifests.
+  NODE_VERSION: 26
 
 jobs:
   ci:
@@ -91,6 +97,13 @@ jobs:
           format: sarif
           # Report findings (surfaced in Code Scanning) without failing CI.
           fail-on-issues: false
+          # The action ref pins the Action code, NOT the CLI. Left unset, the
+          # installer pulls the latest CLI, and 3.x dropped the `fallow-lsp`
+          # binary that the v2.89.0 verification step checks for — the job then
+          # dies during install, before any analysis runs. 2.99.0 is the newest
+          # CLI that still ships it, and pinning also stops a future CLI
+          # release from breaking CI again.
+          version: 2.99.0
 
       - name: Upload Fallow results to Code Scanning
         # Fork PRs only get a read-only token (no security-events: write), so the
