@@ -1,0 +1,11 @@
+.sidenav-container {
+  min-height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+}
+
+.active-link {
+  --mat-list-list-item-label-text-color: var(--mat-sys-primary);
+}

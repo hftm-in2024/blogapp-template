@@ -18,6 +18,6 @@ export class BlogOverviewService {
   }
 
   async like(id: number): Promise<void> {
-    await firstValueFrom(this.#http.post(environment.apiUrl + '/entries/' + id + '/like-info', {}));
+    await firstValueFrom(this.#http.put(environment.apiUrl + '/entries/' + id + '/like-info', {}));
   }
 }

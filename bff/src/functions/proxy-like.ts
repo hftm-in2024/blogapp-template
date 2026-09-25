@@ -11,7 +11,7 @@ async function proxyLike(request: HttpRequest): Promise<HttpResponseInit> {
   if (csrf) return { ...csrf, headers: corsHeaders };
 
   const id = request.params.id;
-  const result = await proxyToBackend(request, '/entries/' + id + '/like-info', 'POST');
+  const result = await proxyToBackend(request, '/entries/' + id + '/like-info', 'PUT');
 
   return {
     status: result.status,
@@ -22,7 +22,7 @@ async function proxyLike(request: HttpRequest): Promise<HttpResponseInit> {
 }
 
 app.http('proxy-like', {
-  methods: ['POST', 'OPTIONS'],
+  methods: ['PUT', 'OPTIONS'],
   authLevel: 'anonymous',
   route: 'entries/{id:int}/like-info',
   handler: proxyLike,

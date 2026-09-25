@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <title>Angular Template</title>
     <base href="/" />
+    <!-- Aufgabe 7: CSP als Meta-Tag, weil Azure Storage ($web) keine eigenen HTTP-Header erlaubt.
+         Google Fonts und picsum.photos (Blog-Bilder) sind explizit freigegeben. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link

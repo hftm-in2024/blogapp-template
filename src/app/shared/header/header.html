@@ -1,4 +1,9 @@
 <mat-toolbar class="app-header">
+  @if (isMobile()) {
+    <button mat-icon-button type="button" aria-label="Menü umschalten" (click)="menuToggle.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
   <a class="app-header__brand" routerLink="/">
     <mat-icon class="app-header__logo">auto_stories</mat-icon>
     <span class="app-header__title">{{ title() }}</span>
@@ -6,17 +11,19 @@
 
   <span class="spacer"></span>
 
-  <nav class="nav-links">
-    <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
-      >Übersicht</a
-    >
-    <a routerLink="/about" routerLinkActive="active-link">Über uns</a>
-    @if (authEnabled && authStore.isAuthenticated()) {
-      <a routerLink="/add-blog" routerLinkActive="active-link" data-testid="add-blog-link"
-        >Neuer Beitrag</a
+  @if (!isMobile()) {
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+        >Übersicht</a
       >
-    }
-  </nav>
+      <a routerLink="/about" routerLinkActive="active-link">Über uns</a>
+      @if (authEnabled && authStore.isAuthenticated()) {
+        <a routerLink="/add-blog" routerLinkActive="active-link" data-testid="add-blog-link"
+          >Neuer Beitrag</a
+        >
+      }
+    </nav>
+  }
 
   <span class="app-header__divider" aria-hidden="true"></span>
 

@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" role="dialog" mode="over">
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="drawer.close()"
+        >Übersicht</a
+      >
+      <a mat-list-item routerLink="/about" routerLinkActive="active-link" (click)="drawer.close()"
+        >Über uns</a
+      >
+      @if (authEnabled && authStore.isAuthenticated()) {
+        <a
+          mat-list-item
+          routerLink="/add-blog"
+          routerLinkActive="active-link"
+          (click)="drawer.close()"
+          >Neuer Beitrag</a
+        >
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-header
+      [title]="title()"
+      [isDarkMode]="isDarkMode()"
+      [isMobile]="isMobile()"
+      (themeToggle)="themeToggle.emit()"
+      (menuToggle)="drawer.toggle()"
+    />
+    <ng-content />
+  </mat-sidenav-content>
+</mat-sidenav-container>

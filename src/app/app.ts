@@ -1,10 +1,10 @@
 import { Component, signal, effect, inject, DOCUMENT } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './shared/header/header';
+import { SidebarComponent } from './core/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -1,5 +1,4 @@
 @use 'variables' as vars;
-@use 'mixins' as mix;
 
 .blog-overview {
   padding: vars.$spacing-md 0;
@@ -45,7 +44,9 @@
 }
 
 .blog-grid {
-  @include mix.responsive-grid(300px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: vars.$spacing-md;
 }
 
 .loading-state {
@@ -57,7 +58,7 @@
   display: flex;
   align-items: center;
   gap: vars.$spacing-sm;
-  grid-column: 1 / -1;
+  flex: 1 1 100%;
   margin: 0;
   padding: vars.$spacing-md;
   border-radius: 12px;

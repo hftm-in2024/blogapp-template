@@ -25,7 +25,10 @@ import { environment } from '../../../environments/environment';
 export class Header {
   readonly title = input('');
   readonly isDarkMode = input(false);
+  /** true unter 768px: Hamburger statt Navigationslinks. */
+  readonly isMobile = input(false);
   readonly themeToggle = output<void>();
+  readonly menuToggle = output<void>();
 
   protected readonly authEnabled = environment.authEnabled;
   protected readonly authStore = inject(AuthStore);

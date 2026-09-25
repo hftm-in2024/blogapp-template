@@ -3,7 +3,21 @@
 
 :host {
   display: block;
-  height: 100%;
+  // Aufgabe 2, Mobile First: 1 Spalte. Gap = $spacing-md (Flex-Container im Blog-Overview).
+  // min-width/max-width: lange Wörter (z.B. data:-URIs) dürfen die Karte nicht aufweiten.
+  min-width: 0;
+  max-width: 100%;
+  flex: 0 0 100%;
+
+  @media (min-width: 768px) {
+    flex-basis: calc((100% - #{vars.$spacing-md}) / 2);
+    max-width: calc((100% - #{vars.$spacing-md}) / 2);
+  }
+
+  @media (min-width: 1024px) {
+    flex-basis: calc((100% - 2 * #{vars.$spacing-md}) / 3);
+    max-width: calc((100% - 2 * #{vars.$spacing-md}) / 3);
+  }
 }
 
 .blog-card {
@@ -24,6 +38,7 @@
     padding: vars.$spacing-md vars.$spacing-md vars.$spacing-sm;
 
     mat-card-title {
+      overflow-wrap: anywhere;
       font-size: 1.125rem;
       font-weight: 600;
       line-height: 1.35;
@@ -37,6 +52,7 @@
 
   &__preview {
     margin: 0;
+    overflow-wrap: anywhere;
     color: var(--mat-sys-on-surface-variant);
     font-size: 0.9375rem;
     line-height: 1.55;

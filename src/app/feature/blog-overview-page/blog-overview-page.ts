@@ -3,7 +3,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { AuthStore } from '../../core/auth/auth-store';
+import { environment } from '../../../environments/environment';
 import { BlogCard } from '../../shared/blog-card/blog-card';
 import { ALL_AUTHORS, BlogStateService } from './state/blog-state.service';
 
@@ -17,6 +20,9 @@ export class BlogOverviewPage implements OnInit {
   /** Einziger Datenzugang der Komponente: der zentrale State Store. */
   protected readonly state = inject(BlogStateService);
 
+  private readonly authStore = inject(AuthStore);
+  private readonly snackBar = inject(MatSnackBar);
+
   protected readonly allAuthors = ALL_AUTHORS;
 
   ngOnInit(): void {
@@ -25,6 +31,10 @@ export class BlogOverviewPage implements OnInit {
 
   /** Reagiert auf das `liked`-Event einer BlogCard. */
   onLiked(id: number): void {
+    if (environment.authEnabled && !this.authStore.isAuthenticated()) {
+      this.snackBar.open('Du kannst nur liken, wenn du eingeloggt bist.', 'OK', { duration: 4000 });
+      return;
+    }
     void this.state.like(id);
   }
 }

@@ -51,10 +51,10 @@ describe('BlogOverviewService', () => {
     await expect(result).resolves.toEqual(RESPONSE);
   });
 
-  it('like() sendet einen POST auf den like-info-Endpoint', async () => {
+  it('like() sendet einen PUT auf den like-info-Endpoint', async () => {
     const result = service.like(1);
     const request = httpMock.expectOne(environment.apiUrl + '/entries/1/like-info');
-    expect(request.request.method).toBe('POST');
+    expect(request.request.method).toBe('PUT');
     request.flush({});
 
     await expect(result).resolves.toBeUndefined();
