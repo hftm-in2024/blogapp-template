@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently -k -n app,bff \"ng serve\" \"pnpm run start:bff\"",
+    "start:bff": "node -e \"fs.mkdirSync('dist/app/browser',{recursive:true})\" && wrangler dev",
+    "test:bff": "tsc -p worker && vitest run --dir worker",
+    "deploy": "ng build && wrangler deploy",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch",
@@ -14,7 +17,7 @@
     "analyze:deps:all": "madge src/main.ts --ts-config tsconfig.json --image ./deps/blogapp-template/_all.png",
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
-    "serve:e2e": "serve dist/app/browser -l 4200 --single"
+    "serve:e2e": "wrangler dev --port 4200 --var OIDC_CLIENT_SECRET:e2e --var OIDC_AUTH_SECRET:e2e-only-secret-with-32-characters"
   },
   "prettier": {
     "printWidth": 100,
@@ -44,6 +47,8 @@
     "@angular/material": "^22.0.6",
     "@angular/platform-browser": "^22.0.8",
     "@angular/router": "^22.0.8",
+    "@hono/oidc-auth": "^1.10.0",
+    "hono": "^4.13.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -59,15 +64,16 @@
     "@playwright/test": "^1.58.2",
     "@vitest/coverage-v8": "^4.1.8",
     "angular-eslint": "^22.1.0",
+    "concurrently": "^10.0.6",
     "eslint": "^10.0.3",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.0.7",
     "madge": "^8.0.0",
     "prettier": "^3.8.1",
-    "serve": "^14.2.6",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.56.1",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "wrangler": "^4.148.0"
   }
 }

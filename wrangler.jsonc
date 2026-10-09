@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blogapp",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  // SPA und BFF laufen im selben Worker: /api/* geht an worker/index.ts,
+  // alles andere wird aus dem Angular-Build ausgeliefert.
+  "assets": {
+    "directory": "dist/app/browser",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"],
+  },
+  // Secrets (OIDC_CLIENT_SECRET, OIDC_AUTH_SECRET) gehören nicht hierhin:
+  // lokal in .dev.vars, deployt per `wrangler secret put`.
+  "vars": {
+    "OIDC_ISSUER": "https://d-cap-keyclaok.kindbay-711f60b2.westeurope.azurecontainerapps.io/realms/blog",
+    "OIDC_CLIENT_ID": "student-bff",
+    "OIDC_SCOPES": "openid profile email",
+    "OIDC_REDIRECT_URI": "/api/auth/callback",
+    // Muss kürzer sein als die Lebensdauer des Access Tokens (Keycloak-Standard: 300 s),
+    // sonst schickt der Proxy ein abgelaufenes Token ans Backend.
+    "OIDC_AUTH_REFRESH_INTERVAL": "240",
+    "BACKEND_API_URL": "https://d-cap-blog-backend---v2.whitepond-b96fee4b.westeurope.azurecontainerapps.io",
+  },
+}

@@ -1,0 +1,5 @@
+# Kopiere diese Datei nach .dev.vars (wird nicht committet) und trage die Werte ein.
+# Client-Secret: gibt der Dozent im Unterricht bekannt.
+OIDC_CLIENT_SECRET=
+# Signiert das Session-Cookie, mindestens 32 Zeichen: openssl rand -base64 32
+OIDC_AUTH_SECRET=

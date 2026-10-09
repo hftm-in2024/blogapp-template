@@ -38,6 +38,9 @@ jobs:
       - name: Unit Tests
         run: pnpm run test:ci
 
+      - name: BFF Tests
+        run: pnpm run test:bff
+
       - name: Coverage summary
         # Render the coverage totals as a table in the run's job summary page —
         # always visible (even on failure), like Vitest's own console output.
