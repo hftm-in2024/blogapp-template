@@ -4,12 +4,14 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Installation
 
-This project uses [pnpm](https://pnpm.io/) as its package manager (the version is pinned via the `packageManager` field in `package.json`). Enable it with Corepack and install the dependencies:
+This project uses [pnpm](https://pnpm.io/) as its package manager (the version is pinned via the `packageManager` field in `package.json`). Install pnpm once and then install the dependencies:
 
 ```bash
-corepack enable
+npm install -g pnpm   # or, on Node.js < 25: corepack enable
 pnpm install
 ```
+
+pnpm automatically switches to the version pinned in `packageManager`.
 
 Dependency overrides, allowed build scripts and peer-dependency rules live in `pnpm-workspace.yaml`.
 

@@ -2,7 +2,7 @@
   "servers": {
     "angular-cli": {
       "command": "pnpm",
-      "args": ["dlx", "@angular/cli", "mcp"]
+      "args": ["exec", "ng", "mcp"]
     }
   }
 }
