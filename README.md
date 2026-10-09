@@ -2,6 +2,19 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.1.
 
+## Installation
+
+This project uses [pnpm](https://pnpm.io/) as its package manager (the version is pinned via the `packageManager` field in `package.json`). Install pnpm once and then install the dependencies:
+
+```bash
+npm install -g pnpm   # or, on Node.js < 25: corepack enable
+pnpm install
+```
+
+pnpm automatically switches to the version pinned in `packageManager`.
+
+Dependency overrides, allowed build scripts and peer-dependency rules live in `pnpm-workspace.yaml`.
+
 ## Development server
 
 To start a local development server, run:
