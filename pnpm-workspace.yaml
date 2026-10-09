@@ -8,6 +8,7 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
+  workerd: true
 
 # Ersetzt das frühere `legacy-peer-deps=true` aus .npmrc: typescript-eslint und
 # madge deklarieren noch keine Peer-Range für TypeScript 6.

@@ -20,10 +20,26 @@ Dependency overrides, allowed build scripts and peer-dependency rules live in `p
 To start a local development server, run:
 
 ```bash
-ng serve
+pnpm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+This starts two processes: the Angular dev server on `http://localhost:4200/` and the BFF (`worker/index.ts`, run by `wrangler dev`) on port 8787. The dev server forwards `/api` to the BFF (`proxy.conf.json`), so the browser only ever talks to `http://localhost:4200/`. The application reloads automatically whenever you modify a source file.
+
+The BFF needs two secrets. Copy `.dev.vars.example` to `.dev.vars` once and fill in the values.
+
+## Backend for Frontend (BFF)
+
+`worker/index.ts` is a small [Hono](https://hono.dev/) app that handles the login with [`@hono/oidc-auth`](https://github.com/honojs/middleware/tree/main/packages/oidc-auth). The browser never sees a token, only an HttpOnly session cookie.
+
+| Endpoint                           | Purpose                                                                 |
+| ---------------------------------- | ----------------------------------------------------------------------- |
+| `GET /api/auth/login?returnUrl=/x` | Redirects to the identity provider, then back to `returnUrl`            |
+| `GET /api/auth/callback`           | Exchanges the authorization code for tokens, sets the session           |
+| `GET /api/auth/me`                 | `{ isAuthenticated, user: { preferred_username, email, name, roles } }` |
+| `POST /api/auth/logout`            | Ends the session, returns `{ logoutUrl }` to navigate to                |
+| `/api/*`                           | Forwarded to the blog backend with the access token attached            |
+
+Run its tests with `pnpm run test:bff`.
 
 ## Code scaffolding
 
@@ -49,43 +65,11 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/app/browser/` directory (the output path is configured as `dist/app` in `angular.json`). By default, the production build optimizes your application for performance and speed.
 
-## Deployment to Azure Storage (Static Website)
+## Deployment to Cloudflare Workers
 
-The app is hosted as a static website on an Azure Storage Account (`$web` container).
+The Angular build and the BFF are deployed together as one Cloudflare Worker (`wrangler.jsonc`). `.github/workflows/deploy.yml` deploys on every push to `main`.
 
-### One-time setup in the Azure Portal
-
-1. **Create a Storage Account** (Standard, LRS, a permitted region such as `polandcentral`).
-2. Open the account → **Static website** (under _Data management_) → **Enabled**.
-   - **Index document name:** `index.html`
-   - **Error document path:** `index.html` (required for Angular client-side routing — every unknown path falls back to `index.html`)
-   - **Save**. The primary endpoint looks like `https://<account>.z16.web.core.windows.net`.
-
-> Note: `staticwebapp.config.json` is only honoured by Azure **Static Web Apps**, not by Storage static-website hosting. Routing falls back via the **Error document path** instead.
-
-### Manual deploy with the Azure CLI
-
-```bash
-ng build
-az login
-
-# Optional: clear stale (hashed) files first so $web matches the build exactly
-az storage blob delete-batch --account-name <account> --source '$web'
-
-az storage blob upload-batch \
-  --account-name <account> \
-  --source dist/app/browser \
-  --destination '$web' \
-  --overwrite
-```
-
-### Automatic deploy via GitHub Actions
-
-`.github/workflows/azure-deploy.yml` builds and uploads to `$web` on every push to `main`.
-Add these repository secrets (Settings → Secrets and variables → Actions):
-
-- `STORAGE_ACCOUNT_NAME` — the storage account name
-- `STORAGE_ACCOUNT_KEY` — an access key (Storage account → _Access keys_)
+Setup (account, GitHub secrets, BFF secrets, Keycloak redirect URI): see [docs/cloudflare-deployment.md](docs/cloudflare-deployment.md).
 
 ## Running unit tests
 
