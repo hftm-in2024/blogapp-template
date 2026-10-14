@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SidebarComponent } from './core/sidebar/sidebar.component';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatToolbarModule],
+  standalone: true,
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = 'HFTM Web Applications (IN353)';
-}
+export class App {}

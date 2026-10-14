@@ -1,3 +1,42 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { BlogOverviewPageComponent } from './feature/blog/blog-overview-page/blog-overview-page';
+import { blogDetailResolver } from './feature/blog/blog-detail.resolver';
+import { authGuard } from './core/auth.guard';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: BlogOverviewPageComponent,
+  },
+
+  {
+    path: 'login',
+    loadComponent: () => import('./login-page/login-page').then((m) => m.LoginPageComponent),
+  },
+
+  // routing für blog-create
+  {
+    path: 'blog/create',
+    canMatch: [authGuard],
+    loadComponent: () => import('./feature/blog-create/blog-create').then((m) => m.BlogCreate),
+  },
+
+  {
+    path: 'blog/:id',
+    // hier kein Guard
+    loadComponent: () =>
+      import('./feature/blog/blog-detail-page/blog-detail-page').then(
+        (m) => m.BlogDetailPageComponent,
+      ),
+    resolve: {
+      blog: blogDetailResolver,
+    },
+  },
+
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./not-found-page/not-found-page').then((m) => m.NotFoundPageComponent),
+  },
+];

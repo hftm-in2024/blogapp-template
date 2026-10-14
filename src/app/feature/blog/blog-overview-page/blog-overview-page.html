@@ -1,0 +1,56 @@
+<div class="toolbar">
+  <!-- Autoren-Auswahl -->
+  <select [value]="state.selectedAuthor()" (change)="state.setAuthor($any($event.target).value)">
+    <option value="all">Alle Autoren</option>
+
+    @for (author of state.authors(); track author) {
+      <option [value]="author">
+        {{ author }}
+      </option>
+    }
+  </select>
+
+  <!-- Authentifizierung -->
+  @if (authStore.isAuthenticated()) {
+    <a mat-button class="create-button" routerLink="/blog/create">
+      <mat-icon>add</mat-icon>
+      Blog erstellen
+    </a>
+
+    <span>
+      {{ authStore.user()?.preferred_username }}
+    </span>
+
+    <button class="auth-button" type="button" (click)="logout()">Logout</button>
+  } @else {
+    <button class="auth-button" type="button" (click)="goToLogin()">Login</button>
+  }
+</div>
+
+@if (isMobile()) {
+  <p>Mobile Ansicht</p>
+}
+
+<h1>Blog Übersicht</h1>
+
+<p>Anzahl Blogs: {{ state.blogCount() }}</p>
+
+@if (state.loading()) {
+  <p>Lade Blogs...</p>
+}
+
+@if (state.error()) {
+  <p class="error">
+    {{ state.error() }}
+  </p>
+}
+
+@if (!state.loading()) {
+  <div class="blog-list">
+    @for (blog of state.filteredBlogs(); track blog.id) {
+      <app-blog-card [model]="blog" (liked)="toggleLike($event)"> </app-blog-card>
+    } @empty {
+      <p>Keine Blog-Posts vorhanden.</p>
+    }
+  </div>
+}
