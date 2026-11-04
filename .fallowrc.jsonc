@@ -1,0 +1,8 @@
+{
+  "$schema": "https://fallow.tools/schema.json",
+  // Used without a source import, so fallow cannot see them:
+  // - @angular/forms: required peer of @angular/cdk and @angular/material
+  //   (CI runs fallow without node_modules, so it cannot resolve peers).
+  // - @angular-eslint/builder: lint builder referenced from angular.json.
+  "ignoreDependencies": ["@angular/forms", "@angular-eslint/builder"],
+}
