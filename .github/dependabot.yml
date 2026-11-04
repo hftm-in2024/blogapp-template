@@ -1,10 +1,22 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      interval: 'weekly'
+    # pnpm enforces minimumReleaseAge (1 day); without a cooldown, PRs for
+    # fresh releases fail `pnpm install --frozen-lockfile` in CI.
+    cooldown:
+      default-days: 2
+    groups:
+      # Angular packages pin each other as peers, so update them together.
+      angular:
+        patterns:
+          - '@angular/*'
+          - '@angular-devkit/*'
+          - '@angular-eslint/*'
+          - 'angular-eslint'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
