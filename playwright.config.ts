@@ -17,7 +17,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: process.env['CI'] ? 'npm run serve:e2e' : 'npm run start',
+    command: process.env['CI'] ? 'pnpm run serve:e2e' : 'pnpm run start',
     url: 'http://localhost:4200',
     reuseExistingServer: !process.env['CI'],
   },
