@@ -1,0 +1,16 @@
+overrides:
+  '@angular-devkit/architect': ^0.2200.0
+  '@angular-devkit/core': ^22.0.0
+  '@angular-devkit/schematics': ^22.0.0
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  lmdb: true
+  msgpackr-extract: true
+
+# Ersetzt das frühere `legacy-peer-deps=true` aus .npmrc: typescript-eslint und
+# madge deklarieren noch keine Peer-Range für TypeScript 6.
+peerDependencyRules:
+  allowedVersions:
+    typescript: '6'
